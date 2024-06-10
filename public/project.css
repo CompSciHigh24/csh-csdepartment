@@ -1,0 +1,33 @@
+body{
+	background: radial-gradient(circle at 10% 20%, rgb(43, 199, 188) 0%, rgb(219, 249, 203) 72.9%);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+
+/* .card > div{
+	box-shadow: 0 4px 6px rgba(0,0,0,0.1)
+	transition: all 0.3s ease;
+}
+
+.card > div:hover{
+	box-shadow: 0 8px 16px rgba(0,0,0,0.5)
+	transition: translateY(-5px)
+} */
+
+h1,h3{
+	font-family: 'Montserrat', sans-serif;
+	color: #333;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.card{
+	gap: 30px
+}
+
+.container{
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 40px
+}

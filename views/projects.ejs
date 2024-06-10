@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>replit</title>
+	<link rel="stylesheet" href="/project.css" />
+	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body>
+	
+	
+	
+	<div class="container mx-auto py-8">
+		<h1 class=" text-4xl border-2 rounded font-bold text-center mb-8">
+			Course Name: <%= courseName  %>
+		</h1>		
+
+		<h1 class="text-xl text-center mb-8">
+			Course Description: <%= courseDescription%>
+		</h1>
+		
+		<div class="card grid grid-cols-1 sm:grid-cols-2 md:grid-col-3 lg:grid-cols-4 gap-15">
+			<% for(let i=0; i<projects.length; i++){ %>
+					<% console.log("testing:", projects[i]); %>
+				
+				<%  if(courseId === projects[i].coursePage._id.toString() ){%>
+					<div class="bg-green rounded-lg shadow-md p-6">
+						<h1 class="text-xl font-seminold mb-2"><%= projects[i].projectName %></h1>
+						<h3 class="text-xl font-seminold mb-2"> Made by: <%= projects[i].studentName %></h3>
+						<img src="https://placehold.jp/300x250.png" alt="Img" class="w-full mb-4 rounded-lg">
+						<p class="text-gray-800 mb-2">Grade: <%= projects[i].grade%></p>
+						<p class="text-grey-800 mb-2">Year: <%= projects[i].yearMade%></p>
+						<p class="text-grey-800 mb-2">Description: <%= projects[i].projectDescription%></p>
+						<a href="/project/view?projectId=<%= projects[i]._id%>" class="block bg-green-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">View project</a>
+					</div>
+			
+				<%}%>
+			<%}%>		
+			
+		</div>
+		
+	</div>
+	<!-- <script type="text/javascript" src="vanilla-tilt.js"></script>
+				
+	<script type="text/javascript" >
+		VanillaTilt.init(document.querySelectorAll(".card"), {
+			max: 25,
+			speed: 400,
+			glare: true,
+			'max-glare': 1,
+			
+		});
+	</script> -->
+
+				
+
+	
+	
+	
+</body>
+
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>replit</title>
+		<link rel="stylesheet" href="/project.css" />
+		<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+	</head>
+	
+	<body>
+		
+		
+		
+		<div class="container mx-auto py-8">
+					
+	
+			<h1 class="text-xl text-center mb-8 border rounded">
+				Project admin Panel
+			</h1>
+	
+			<div class="flex justify-center mt-8">
+					<button class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 m-5 rounded"
+							onclick="showCreateProject()">
+							Create new Project
+					</button>
+			</div>
+			
+			<div class="card grid grid-cols-1 sm:grid-cols-2 md:grid-col-3 lg:grid-cols-4 gap-10">
+				<% for(let i=0; i<projects.length; i++){ %>
+						<% console.log("testing:", projects[i]); %>
+					
+					
+						<div class="projectContainer bg-green rounded-lg shadow-md p-6">
+							<h1 class="text-xl font-seminold mb-2"><%= projects[i].projectName %></h1>
+							<h3 class="text-xl font-seminold mb-2"> Made by: <%= projects[i].studentName %></h3>
+							<img src="https://placehold.jp/300x250.png" alt="Img" class="w-full mb-4 rounded-lg">
+							<p class="text-gray-800 mb-2">Grade: <%= projects[i].grade%></p>
+							<p class="text-grey-800 mb-2">Year: <%= projects[i].yearMade%></p>
+							<p class="text-grey-800 mb-2">Description: <%= projects[i].projectDescription%></p>
+							<p class="projectId hidden"> <%= projects[i]._id%></p>
+							<button class="edit-btn w-full bg-blue-500 text-white rounded py-2 mt-4"> Edit </button>
+							<button class="delete-btn w-full bg-red-500 text-white rounded py-2 mt-4"> Delete </button>
+	
+							<div class="editForm hidden">
+								<form id="editProject">
+									<div class="mb-4">
+										<label for="editprojectName" class="block font-bold mb-2">Project Name: </label>
+										<input id="editprojectName" type="text" value="<%= projects[i].projectName%>" class="border rounded-lg px-3 py-2 w-full" required>
+	
+	
+									</div>
+									<div class="mb-4">
+										<label for="editstudentName" class="block font-bold mb-2">Student Name: </label>
+										<input id="editstudentName" type="text" value="<%=projects[i].studentName%>" class="border rounded-lg px-3 py-2 w-full" required>
+	
+	
+									</div>
+									<div class="mb-4">
+										<label for="editgrade" class="block font-bold mb-2">Grade: </label>
+										<input id="editgrade" type="number" value="<%=projects[i].grade%>" class="border rounded-lg px-3 py-2 w-full" min="9" max="12"required>
+	
+	
+									</div>
+									<div class="mb-4">
+										<label for="edityearMade" class="block font-bold mb-2">Year Made: </label>
+										<input id="edityearMade" type="number" value="<%=projects[i].yearMade%>" class="border rounded-lg px-3 py-2 w-full" required>
+	
+	
+									</div>
+									<div class="mb-4">
+										<label for="editprojectDescription" class="block font-bold mb-2">Project Description: </label>
+										<textarea type="text" id="editprojectDescription" class="border rounded-lg px-3 py-2 w-full" required><%=projects[i].projectDescription%></textarea>
+	
+	
+									</div>
+									<div class="mb-4">
+										<label for="editprojectURL" class="block font-bold mb-2">Project URL (github link): </label>
+										<input id="editprojectURL" type="text" value="<%=projects[i].projectURL%>" class="border rounded-lg px-3 py-2 w-full" required>
+	
+	
+									</div>
+	
+									<div class="mb-4">
+										<label for="editcoursePage" class="block font-bold mb-2">For Course? </label>
+										<select id="editcoursePage" class="border rounded-lg px-3 py-2 w-full" required >
+											
+											<% courses.forEach(function(course) { %>
+												<option value="<%= course._id %>" <%= (projects[i].coursePage.toString() && projects[i].coursePage._id.toString() === course._id.toString()) ? 'selected' : '' %>><%= course.courseName %> </option> 
+												<!-- This starts at the course -->
+											<!-- <% })%>	 -->
+												
+										
+											
+										<!-- </select> -->
+	
+	
+									<!-- </div> -->
+											<div class="flex justify-end">
+													<button type="button"
+															class="bg-green-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded mr-2"
+															onclick="hideEditForm(this.closest('.editForm'))">Cancel</button>
+													<button type="submit" class="bg-green-500 text-white font-semibold py-2 px-4  rounded">Save</button>
+											</div>
+												
+	
+									
+									
+								</form>
+							</div>
+							
+						</div>
+				
+					
+				<%}%>		
+	
+	
+					<div class="fixed z-10 inset-0 overflow-y-auto hidden  " id="createProject">
+							<div class="flex items-center justify-center min-h-screen">
+									<div class="bg-white rounded-lg shadow-lg p-6">
+											<h2 class="text-2xl font-bold mb-4">Create New Project</h2>
+											<form id="createProjectForm">
+													<div class="mb-4">
+														<label for="projectName" class="block font-bold mb-2">Project Name: </label>
+														<input id="projectName" type="text"  class="border rounded-lg px-3 py-2 w-full" required>
+	
+	
+													</div>
+													<div class="mb-4">
+														<label for="studentName" class="block font-bold mb-2">Student Name: </label>
+														<input id="studentName" type="text"  class="border rounded-lg px-3 py-2 w-full" required>
+	
+	
+													</div>
+													<div class="mb-4">
+														<label for="grade" class="block font-bold mb-2">Grade: </label>
+														<input id="grade" type="number" class="border rounded-lg px-3 py-2 w-full" min="9" max="12"required>
+	
+	
+													</div>
+													<div class="mb-4">
+														<label for="yearMade" class="block font-bold mb-2">Year Made: </label>
+														<input id="yearMade" type="number"  class="border rounded-lg px-3 py-2 w-full" required>
+	
+	
+													</div>
+													<div class="mb-4">
+														<label for="projectDescription" class="block font-bold mb-2">Project Description: </label>
+														<textarea type="text" id="projectDescription" class="border rounded-lg px-3 py-2 w-full" required></textarea>
+	
+	
+													</div>
+													<div class="mb-4">
+														<label for="projectURL" class="block font-bold mb-2">Project URL (github link): </label>
+														<input id="projectURL" type="text" placeholder="https://example.githubLink.com" class="border rounded-lg px-3 py-2 w-full" required>
+	
+	
+													</div>
+													<select id="coursePage" class="border rounded-lg px-3 py-2 w-full" required >
+														<option value="">
+															Select a course
+
+														</option>
+														<% courses.forEach(function(course) { %>
+															<option value="<%= course._id %>"><%= course.courseName %></option>
+														<% })%>	
+
+
+
+													</select>
+																<div class="flex justify-end">
+																		<button type="button"
+																				class="bg-green-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded mr-2"
+																				onclick="hideProjectForm()">Cancel</button>
+																		<button type="submit" class="bg-green-500 text-white font-semibold py-2 px-4  rounded">Create
+																				Project</button>
+																</div>
+											</form>
+									</div>
+							</div>
+					</div>
+			</div>
+		</div>
+		<script>
+				function showCreateProject() {
+						document.getElementById('createProject').classList.remove('hidden');
+				}
+
+				function hideProjectForm() {
+						document.getElementById('createProject').classList.add('hidden');
+						document.getElementById('createProjectForm').reset();
+				}
+
+				function showEditForm(editForm) {
+					const projectContainer = editForm.closest('.projectContainer');
+					projectContainer.classList.remove('hidden');
+					editForm.classList.remove('hidden')
+				}
+
+				function hideEditForm(editForm) {
+					const projectContainer = editForm.closest('.projectContainer');
+					projectContainer.classList.remove('hidden')
+
+					editForm.classList.add('hidden')
+					
+				}
+
+				document.querySelectorAll(".delete-btn").forEach((button) => {
+						button.addEventListener("click", () => {
+								const projectContainer = button.closest(".projectContainer");
+								const projectName = projectContainer.querySelector("h1").textContent.trim();
+								const projectId = projectContainer.querySelector(".projectId").textContent.trim();
+								console.log("Here the project id : ", projectId)
+								if (confirm(`Are you sure you want to delete ${projectName}?`)) {
+										fetch(`/project/${projectId}`, {
+												method: "DELETE",
+												headers: { "Content-Type": "application/json; charset=UTF-8" },
+										})
+												.then((response) => response.json())
+												.then((json) => {
+														console.log(json);
+														location.reload();
+												})
+												.catch((error) => {
+														console.error('Error:', error);
+												});
+								}
+						});
+				});
+
+				document.getElementById('createProjectForm').addEventListener('submit', (e) => {
+						e.preventDefault();
+
+
+
+						const formData = {
+							projectName: document.getElementById('projectName').value,
+							studentName: document.getElementById('studentName').value,
+							grade: document.getElementById('grade').value,
+							yearMade: document.getElementById('yearMade').value,
+							projectDescription: document.getElementById('projectDescription').value,
+							projectURL: document.getElementById('projectURL').value,
+							coursePage: document.getElementById('coursePage').value,
+						};
+						fetch('/project', {
+								method: "POST",
+								headers: { "Content-Type": "application/json; charset=UTF-8" },
+								body: JSON.stringify(formData)
+						})
+								.then((response) => {
+
+									response.json()
+								})
+								.then(data => {
+										console.log("Project created: ", data);
+										hideProjectForm();
+										location.reload();
+								})
+								.catch(error => {
+										console.error('Error: ', error);
+								});
+				});
+
+				document.querySelectorAll('.edit-btn').forEach((button) => {
+						button.addEventListener('click', () => {
+							const projectContainer = button.closest(".projectContainer");
+							const projectId = projectContainer.querySelector(".projectId").textContent.trim();
+								const editForm = projectContainer.querySelector('.editForm');
+
+								 
+
+
+
+								showEditForm(editForm);
+
+								editForm.addEventListener('submit', (e) => {
+										e.preventDefault();
+										const formData = {
+												projectName: editForm.querySelector('#editprojectName').value,
+												studentName: editForm.querySelector('#editstudentName').value,
+												grade: editForm.querySelector('#editgrade').value,
+												yearMade: editForm.querySelector('#edityearMade').value,
+												projectDescription: editForm.querySelector('#editprojectDescription').value,
+												projectURL: editForm.querySelector('#editprojectURL').value,
+												coursePage: editForm.querySelector('#editcoursePage').value,
+										};
+
+										fetch(`/project/${projectId}`, {
+												method: 'PATCH',
+												headers: {
+														'Content-Type': 'application/json',
+												},
+												body: JSON.stringify(formData),
+										})
+												.then((response) => response.json())
+												.then((data) => {
+														console.log('Course updated:', data);
+														// hideEditForm(editForm);
+														location.reload();
+												})
+												.catch((error) => {
+														console.error('Error:', error);
+												});
+								});
+						});
+				});
+		</script>
+	</body>
+		
+</html>
