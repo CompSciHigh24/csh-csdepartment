@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/staff.css">
+	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/navbar.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	</head>
+	<title>List</title>
+
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-custom navbar-mainbg !bg-white-900 ">
+		<a class="navbar-brand navbar-logo" href="/">CS Department</a>
+		<button
+			class="navbar-toggler"
+			type="button"
+			aria-controls="navbarSupportedContent"
+			aria-expanded="false"
+			aria-label="Toggle navigation"
+		>
+			<i class="fas fa-bars text-white">☰</i>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ml-auto">
+				<div class="hori-selector">
+					<div class="left"></div>
+					<div class="right"></div>
+				</div>
+				<li class="nav-item ">
+					<a class="nav-link" href="/"
+						><i class="fas fa-tachometer-alt"></i>Home</a
+					>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="/teacher"
+						><i class="far fa-address-book"></i>Our Staff</a
+					>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/course"
+						><i class="far fa-clone"></i>Courses</a
+					>
+				</li>
+				
+			</ul>
+		</div>
+	</nav>
+
+	<h1 class="text-center font-bold text-4xl md:text-5xl lg:text-6xl py-8 bg-gradient-to-r from-green-800 to-white-800 text-white rounded-lg shadow-md"> Staff </h1>
+
+	
+
+
+	<div class="justify-center m-auto mx-auto m-20">
+		
+			<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-10">
+			<%for(i=0; i<Staffinfo.length;i++){%>
+				<div class="staff">
+					<img class="staffProfilePic" src="<%=Staffinfo[i].staffImg%>" alt="Staff proflie picture">
+					<div id="staffInfo underline">
+						<h2> <%= Staffinfo[i].staffName %></h2>
+						
+						<h4 class="border rounded">
+						</h4>
+						<h4 class="">
+							<%= Staffinfo[i].staffTitle %>
+						</h4>
+						<p class="staff-bio" ">
+							<%= Staffinfo[i].staffBio.split(' ').slice(0,30).join(' ') %>... <button class="readMore underline">Read more </button>
+						</p>
+						<p class="fullBio hidden">
+							<%= Staffinfo[i].staffBio %> <button class="readMore underline">Read less </button> 
+						</p>
+						
+						
+					</div>
+				</div>
+				<%}%>
+			</div>
+		
+	</div>
+
+		
+
+		<footer class="footer bg-green-700 text-white py-4 text-center mt-8   bottom-0 w-full ">
+			<h2>
+				Contact US!
+			</h2>
+				<p> @csrocks@compscihigh.org</p>
+		</footer>
+
+		<script defer>
+
+			var readMoreButton = document.querySelectorAll('.readMore')
+
+			readMoreButton.forEach((button)=>{
+				button.addEventListener('click', function(e){
+					e.preventDefault()
+
+					var parentDiv = button.closest('.staff')
+
+					var shortenBio = parentDiv.querySelector('.staff-bio')
+					var fullBio = parentDiv.querySelector('.fullBio')
+
+					if(shortenBio.style.display !== 'none'){
+						shortenBio.style.display = 'none'
+						fullBio.style.display = 'block'
+						this.textContent ="Read more"
+						
+					}else{
+						shortenBio.style.display = 'block'
+						fullBio.style.display = 'none'
+						this.textContent ="Read less"
+					}
+				})
+			})
+			
+			
+			
+		</script>	
+
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	<script src="/navbar.js"></script>
+
+</body>
+
+</html>
