@@ -7,6 +7,7 @@ const courseSchema = new mongoose.Schema({
   courseGrade: { type: Number, required: true },
   courseDescription: { type: String, required: true},
   possibleCareerpath: { type: String, required: false},
+  
 
 });
 

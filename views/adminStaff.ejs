@@ -1,148 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="/staff.css">
-        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="/navbar.css" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <title>Staff Page Admin</title>
-    </head>
-    <body>
-        <h1 class="text-center text-xl border-2 rounded m-10">Admin Page Staff Panel</h1>
-        <div style="display: none;" class="CreateForm mx-auto p-4">
-            <h1 class="text-3xl font-bold text-center mb-8">Admin access</h1>
-            <div class="card bg-green-600 shadow-md rounded-lg p-6 mb-8">
-                <form id="addForm" >
-                    <label for="staffName">Enter Staff Name:</label>
-                    <input type="text" id="staffName" name="staffName" required class="w-full border border-gray-300 rounded px-3 py-2" />
-                    <br />
-                    <label for="staffTitle">Enter Staff Title:</label>
-                    <input type="text" id="staffTitle" name="staffTitle" required class="w-full border border-gray-300 rounded px-3 py-2" >
-                    <br/>
-                    <label for="staffBio">Enter Staff Bio:</label>
-                    <textarea type="text" id="staffBio" name="staffBio" required class="w-full border border-gray-300 rounded px-3 py-2" ></textarea>
-                    <br />
-                    <label for="staffImg">Enter Profile Image URL:</label>
-                    <input type="text" id="staffImg" name="staffImg" required class="w-full border border-gray-300 rounded px-3 py-2" />
-                    <br />
-                    <input type="submit" class="w-full bg-blue-500 text-white rounded py-2 mt-4" />
-                </form>
-            </div>
-        </div>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/adminStaff.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/navbar.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="icon" href="https://static1.squarespace.com/static/5b328976aa49a1b7b46b89c3/t/5b328c90575d1ff0174390ba/1710002027821/" type="image/icon type">
+    <title>Staff Admin Page</title>
+</head>
+<body >
+    
 
-        <div class="mx-auto m-20">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-                <button id="addBtn" class="edit bg-green-500 text-white rounded py-2 mt-4" aria-label="Add Staff">Add</button>
-                <% for (i = 0; i < Staffinfo.length; i++) { %>
-                <div class="staff">
-                    <img class="staffProfilePic" src="<%=Staffinfo[i].staffImg%>" alt="Staff profile picture" />
-                    <div id="staffInfo">
-                        <h2><%= Staffinfo[i].staffName %></h2>
-                        
-                        <h5 class="hidden"><%= Staffinfo[i]._id%></h5>
-                        <h3 class="border rounded">
-                        </h3>
-                        <h4 class="staffTitle border rounded"><%= Staffinfo[i].staffTitle %></h4>
-                        <p><%= Staffinfo[i].staffBio %></p>
-                        <button class="edit-btn w-full bg-blue-500 text-white rounded py-2 mt-4" aria-label="Edit Staff">Edit</button>
-                        <button class="delete-btn w-full bg-red-500 text-white rounded py-2 mt-4" aria-label="Delete Staff">Delete</button>
-                    </div>
+    
+    <h1 class="text-center text-4xl  rounded m-10">Admin Page Staff Panel</h1>
+    <p class="border"></p>
+    <p class="text-center text-2xl text-red-500 rounded m-10 ">For Security reasons logout when done !!!</p>
+   <div class="flex justify-end items-end align-end mx-2">
+       <a id="logoutBtn" href="#" class="relative inline-flex items-center hover:no-underline justify-center px-10 py-4 overflow-hidden font-mono font-medium tracking-tighter text-white bg-gray-800 rounded-lg group">
+         <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-red-500 rounded-full group-hover:w-56 group-hover:h-56"></span>
+         <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-700 hover:no-underline"></span>
+         <span class="relative flex items-center">
+             <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none">
+             <path d="M12.9999 2C10.2385 2 7.99991 4.23858 7.99991 7C7.99991 7.55228 8.44762 8 8.99991 8C9.55219 8 9.99991 7.55228 9.99991 7C9.99991 5.34315 11.3431 4 12.9999 4H16.9999C18.6568 4 19.9999 5.34315 19.9999 7V17C19.9999 18.6569 18.6568 20 16.9999 20H12.9999C11.3431 20 9.99991 18.6569 9.99991 17C9.99991 16.4477 9.55219 16 8.99991 16C8.44762 16 7.99991 16.4477 7.99991 17C7.99991 19.7614 10.2385 22 12.9999 22H16.9999C19.7613 22 21.9999 19.7614 21.9999 17V7C21.9999 4.23858 19.7613 2 16.9999 2H12.9999Z" fill="#000000"/>
+             <path d="M13.9999 11C14.5522 11 14.9999 11.4477 14.9999 12C14.9999 12.5523 14.5522 13 13.9999 13V11Z" fill="#000000"/>
+             <path d="M5.71783 11C5.80685 10.8902 5.89214 10.7837 5.97282 10.682C6.21831 10.3723 6.42615 10.1004 6.57291 9.90549C6.64636 9.80795 6.70468 9.72946 6.74495 9.67492L6.79152 9.61162L6.804 9.59454L6.80842 9.58848C6.80846 9.58842 6.80892 9.58778 5.99991 9L6.80842 9.58848C7.13304 9.14167 7.0345 8.51561 6.58769 8.19098C6.14091 7.86637 5.51558 7.9654 5.19094 8.41215L5.18812 8.41602L5.17788 8.43002L5.13612 8.48679C5.09918 8.53682 5.04456 8.61033 4.97516 8.7025C4.83623 8.88702 4.63874 9.14542 4.40567 9.43937C3.93443 10.0337 3.33759 10.7481 2.7928 11.2929L2.08569 12L2.7928 12.7071C3.33759 13.2519 3.93443 13.9663 4.40567 14.5606C4.63874 14.8546 4.83623 15.113 4.97516 15.2975C5.04456 15.3897 5.09918 15.4632 5.13612 15.5132L5.17788 15.57L5.18812 15.584L5.19045 15.5872C5.51509 16.0339 6.14091 16.1336 6.58769 15.809C7.0345 15.4844 7.13355 14.859 6.80892 14.4122L5.99991 15C6.80892 14.4122 6.80897 14.4123 6.80892 14.4122L6.804 14.4055L6.79152 14.3884L6.74495 14.3251C6.70468 14.2705 6.64636 14.1921 6.57291 14.0945C6.42615 13.8996 6.21831 13.6277 5.97282 13.318C5.89214 13.2163 5.80685 13.1098 5.71783 13H13.9999V11H5.71783Z" fill="#000000"/>
+             </svg>
+           Logout
+           
+         </span>
+       </a>
+
+   </div>
+    <div style="display: none;" class="CreateForm mx-auto p-4">
+        <h1 class="text-3xl font-bold text-center mb-8">Admin access</h1>
+        <div class="card bg-green-600 shadow-md rounded-lg p-6 mb-8">
+            <form id="addForm" >
+                <label for="staffName">Enter Staff Name:</label>
+                <input type="text" id="staffName" name="staffName" required class="w-full border border-gray-300 rounded px-3 py-2" />
+                <br />
+                <label for="staffTitle">Enter Staff Title:</label>
+                <input type="text" id="staffTitle" name="staffTitle" required class="w-full border border-gray-300 rounded px-3 py-2" >
+                <br/>
+                <label for="staffBio">Enter Staff Bio:</label>
+                <textarea type="text" id="staffBio" name="staffBio" required class="w-full border border-gray-300 rounded px-3 py-2" ></textarea>
+                <br />
+                <label for="staffImg">Upload Proflie picture:</label>
+                <input type="file" id="staffImg" name="staffImg" accept="image/*" required class="w-full border border-gray-300 rounded px-3 py-2" />
+                <br />
+                <input type="submit" class="w-full bg-blue-500 text-white rounded py-2 mt-4" />
+            </form>
+        </div>
+    </div>
+
+    <div class="mx-auto m-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+            <button id="addBtn" class="edit bg-green-500 text-white rounded py-2 mt-4" aria-label="Add Staff">Add</button>
+            <% for (i = 0; i < Staffinfo.length; i++) { %>
+            <div class="staff">
+                <img class="staffProfilePic" src="data:image/*;base64,<%=Staffinfo[i].staffImg%>" alt="Staff profile picture" />
+                <div id="staffInfo">
+                    <h2 class="text-3xl font-bold"><%= Staffinfo[i].staffName %></h2>
+                    
+                    <h5 class="hidden"><%= Staffinfo[i]._id%></h5>
+                    <h3 class="border rounded">
+                    </h3>
+                    <h4 class="staffTitle text-2xl font-bold"><%= Staffinfo[i].staffTitle %></h4>
+                    <p><%= Staffinfo[i].staffBio %></p>
+                    <button class="edit-btn w-full bg-blue-500 text-white rounded py-2 mt-4" aria-label="Edit Staff">Edit</button>
+                    <button class="delete-btn w-full bg-red-500 text-white rounded py-2 mt-4" aria-label="Delete Staff">Delete</button>
                 </div>
-                <% } %>
             </div>
+            <% } %>
         </div>
+    </div>
 
-        <script defer>
-            const addButton = document.querySelector("#addBtn");
-            const createForm = document.querySelector(".CreateForm");
-            addButton.addEventListener("click", () => {
-                createForm.style.display = createForm.style.display === "none" ? "block" : "none";
-            });
+    <script defer>
+        const addButton = document.querySelector("#addBtn");
+        const createForm = document.querySelector(".CreateForm");
+        addButton.addEventListener("click", () => {
+            createForm.style.display = createForm.style.display === "none" ? "block" : "none";
+        });
 
-            const addForm = document.querySelector("#addForm");
-            addForm.addEventListener("submit", (e) => {
-                e.preventDefault();
-                const formData = new FormData(addForm);
+        const addForm = document.querySelector("#addForm");
+        addForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const formData = new FormData(addForm);
+
+            const Image = document.querySelector('#staffImg')
+            const file = Image.files[0]
+            const reader = new FileReader();
+
+            reader.onloadend = function (){
+                formData.set('staffImg', reader.result.split(',')[1])
+                
                 const data = Object.fromEntries(formData.entries());
-                console.log(data);
+                
 
                 fetch("/teacher", {
                     method: "POST",
                     body: JSON.stringify(data),
                     headers: { "Content-Type": "application/json; charset=UTF-8" },
                 })
-                    .then((response) => response.json())
-                    .then((json) => {
-                        console.log(json);
-                        location.reload();
-                    });
-            });
+                .then((response) => response.json())
+                .then((json) => {
+                    console.log(json);
+                    // location.reload();
+                    location.href = "/teacher/admin/access"
+                });
+                
+            }
+            if(file){
+                reader.readAsDataURL(file)
+            }
 
-            const editButtons = document.querySelectorAll(".edit-btn");
-            editButtons.forEach((button) => {
-                button.addEventListener("click", () => {
-                    const staffTile = button.closest(".staff");
-                    const staffName = staffTile.querySelector("h2").textContent
-                    const staffTitle = staffTile.querySelector("h4").textContent
-                    const staffBio = staffTile.querySelector("p").textContent
-                    const staffImg = decodeURI(staffTile.querySelector("img").src);
+            
+            
+        });
 
-                    const editForm = `
-                    <form class="edit-form">
-                        <label>Name: <input type="text" name="staffName" value="${staffName}" required></label><br>
-                    <label>Title: <input type="text" name="staffTitle" value="${staffTitle}" required></label><br>
-                        <label>Bio: <input type="text" name="staffBio" value="${staffBio}" required></label><br>
-                        <label>Img Url: <input type="text" name="staffImg" value="${staffImg}"></label><br>
-                        <button type="submit" class="w-full bg-green-500 text-white rounded py-2 mt-4">Save</button>
-                    </form>
-                `;
+        const editButtons = document.querySelectorAll(".edit-btn");
+        editButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                const staffTile = button.closest(".staff");
+                const staffName = staffTile.querySelector("h2").textContent
+                const staffTitle = staffTile.querySelector("h4").textContent
+                const staffBio = staffTile.querySelector("p").textContent
+                const staffImg = staffTile.querySelector("img").src;
+                const staffId = staffTile.querySelector("h5").textContent.trim()
 
-                    staffTile.innerHTML = editForm;
+                const editForm = `
+                <form class="edit-form">
+                    <label>Name: <input type="text" name="staffName" value="${staffName}" required></label><br>
+                <label>Title: <input type="text" name="staffTitle" value="${staffTitle}" size= 60 required></label><br>
+                    <label>Bio:<textarea type="text"  name="staffBio" required class="w-full border border-gray-300 rounded px-3 py-2" rows="5" cols="50">${staffBio}</textarea></label><br>
+                    <label>Img Url: <input type="file" name="staffImg" accept="image/*"></label><br>
+                    <button type="submit" class="w-full bg-green-500 text-white rounded py-2 mt-4">Save</button>
+                </form>
+            `;
 
-                    const updateForm = staffTile.querySelector(".edit-form");
-                    updateForm.addEventListener("submit", (e) => {
-                        e.preventDefault();
-                        const formData = new FormData(updateForm);
-                        const data = Object.fromEntries(formData.entries());
-                        console.log(data, "is getting updated");
+                staffTile.innerHTML = editForm;
+
+                const updateForm = staffTile.querySelector(".edit-form");
+                updateForm.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    const formData = {
+                        staffName: updateForm.querySelector("input[name='staffName']").value,
+                        staffTitle: updateForm.querySelector("input[name='staffTitle']").value,
+                        staffBio: updateForm.querySelector("textarea[name='staffBio']").value,
+
+                    };
+            
+                    const Image = updateForm.querySelector('input[type="file"]');
+                    const file = Image.files[0];
+                    const reader = new FileReader();
+
+                    reader.onloadend = () =>{
+                        let base64String = null
+
                         
-                        const encode = encodeURIComponent(staffName)
-                        fetch(`/teacher/${staffName}`, {
-                            method: "PATCH",
-                            body: JSON.stringify(data),
-                            headers: { "Content-Type": "application/json; charset=UTF-8" },
-                        })
-                            .then((response) => response.json())
-                            .then((json) => {
-                                console.log(json);
-                                location.reload();
-                            });
-                    });
-                });
-            });
 
-            const deleteButtons = document.querySelectorAll(".delete-btn");
-            deleteButtons.forEach((button) => {
-                button.addEventListener("click", () => {
-                    const staffTile = button.closest(".staff");
-                    const staffName = staffTile.querySelector("h2").textContent.trim();
-                    const staffId = staffTile.querySelector("h5").textContent.trim();
-                    if (confirm(`Are you sure you want to delete ${staffName}?`)) {
+                        if(file){
+                            base64String = reader.result.split(',')[1];
+
+                        }else{
+                        
+                            base64String = staffImg.split(',')[1]
+                            
+                        }
+                        formData.staffImg = base64String;
+                        
+
                         fetch(`/teacher/${staffId}`, {
-                            method: "DELETE",
-                            headers: { "Content-Type": "application/json; charset=UTF-8" },
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(formData),
                         })
-                            .then((response) => response.json())
-                            .then((json) => {
-                                console.log(json);
-                                location.reload();
-                            });
+                        .then((response) => response.json())
+                        .then((data) => {
+                            console.log('Teacher updated:', data);
+                            
+                            location.href = "/teacher/admin/access"
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        });
+
                     }
+                    if(file){
+                        reader.readAsDataURL(file)
+
+                    }else{
+                        reader.onloadend()
+
+                    }
+                    
+                    
                 });
             });
-        </script>
-    </body>
+        });
+
+        const deleteButtons = document.querySelectorAll(".delete-btn");
+        deleteButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                const staffTile = button.closest(".staff");
+                const staffName = staffTile.querySelector("h2").textContent.trim();
+                const staffId = staffTile.querySelector("h5").textContent.trim();
+                if (confirm(`Are you sure you want to delete ${staffName}?`)) {
+                    fetch(`/teacher/${staffId}`, {
+                        method: "DELETE",
+                        headers: { "Content-Type": "application/json; charset=UTF-8" },
+                    })
+                        .then((response) => response.json())
+                        .then((json) => {
+                            console.log(json);
+                            location.reload();
+                        });
+                }
+            });
+        });
+
+       
+
+       
+
+
+
+
+        const logoutButton = document.getElementById('logoutBtn');
+
+        logoutButton.addEventListener('click',function(e){
+            fetch('/teacher/admin/logout')
+            .then(response =>{
+                if(response.ok){
+                    location.href = '/teacher/admin/login'
+                }else{
+                    alert('Failed to log out!')
+                }
+            })
+        })
+    </script>
+</body>
 </html>

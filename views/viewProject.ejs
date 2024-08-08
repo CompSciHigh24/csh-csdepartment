@@ -6,42 +6,149 @@
 
 			 <link rel="stylesheet" href="/adminLogin.css">
 			 <link rel="stylesheet" href="/adminPage.css">
-			<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+			 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+			 <script src="https://cdn.tailwindcss.com"></script>
+		   <link rel="icon" href="../images/compscihigh.png" type="image/icon type">
+			 <title><%=project.projectName %></title>
+
+		 
 	 </head>
-	 <title>List</title>
+	
+	 
 	 </head>
-	<body class="bg-gray-100 text-gray-900">
+	<body class="bg-white text-gray-900">
+		<style>
+			/* HTML: <div class="loader"></div> */
+			/* HTML: <div class="loader"></div> */
+			.loader {
+				width: 15px;
+				aspect-ratio: 1;
+				border-radius: 50%;
+				animation: l5 2s infinite linear alternate;
+			}
+			@keyframes l5 {
+					0%  {box-shadow: 20px 0 #000, -20px 0 #0002;background: #000 }
+					33% {box-shadow: 20px 0 #000, -20px 0 #0002;background: #0002}
+					66% {box-shadow: 20px 0 #0002,-20px 0 #000; background: #0002}
+					100%{box-shadow: 20px 0 #0002,-20px 0 #000; background: #000 }
+			}
+			
+
+			@keyframes spin {
+				0% { transform: rotate(0deg); }
+				100% { transform: rotate(360deg); }
+			}
+			
+			.loading-container {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100%;
+				width: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background-color: rgba(128, 128, 128, 0.5); 
+				z-index: 10;
+				animation: fadeInOut 2s infinite;
+			}
+			@keyframes fadeInOut {
+					0%, 100% { opacity: 1; }
+					50% { opacity: 0.4; }
+			}
+
+			iframe{
+				display: none;
+			}
+		</style>
 
 		
 		 <div class="container mx-auto p-4">
-			 <a type="button" class=" bg-green-500 hover:bg-green-600 text-center text-white font-semibold py-2 px-4 rounded transition-colors duration-300" href="javascript:history.back()">
-				 <<< Back
-				</a>
-				<h1 class="text-center m-12 font-bold text-4xl md:text-5xl lg:text-6xl py-8 bg-gradient-to-r from-green-800 to-white-800 text-white rounded-lg shadow-md"> <%=project.projectName %></h1><br>
+			 <a href="/project?courseId=<%=project.coursePage._id %>" class="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-green-500 rounded-full shadow-md group border-lg">
+			 <span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-green-700 group-hover:translate-x-0 ease">
+			 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+			 </span>
+			 <span class="absolute flex items-center justify-center w-full h-full text-gray-500 transition-all duration-300 transform group-hover:translate-x-full ease"> More From <%=project.coursePage.courseName %></span>
+			 <span class="relative invisible">More From <%=project.coursePage.courseName %></span>
+			 </a>
 
-			 <h1 class="texl-4xl text-center font-bold m-15"> Made by: <%= project.studentName %> </h1>
+				<h1 class="text-center m-12 font-bold text-4xl md:text-5xl lg:text-6xl py-8 bg-gradient-to-r from-green-800 to-white-800 text-white rounded-lg shadow-md border-lg border"> <%=project.projectName %></h1><br>
+
+			 <div class="p-6 border-4 border-lg border-green-500 rounded-lg bg-white shadow-lg mb-5">
+				 <h1 class="text-3xl text-center font-bold m-15 "> Made by: <br> <%= project.studentName %> </h1>
+					<h1 class="text-2xl text-center font-bold m-15"> Grade:  <%= project.grade %> </h1>
+					<h1 class="text-2xl text-center font-bold m-15"> Made in:  <%= project.yearMade %> </h1>
+				 
+			 </div>
+
+			 <%if(project.coursePage.possibleCareerpath === 'No'){%> 
+
+				 <!-- This shows the Iframe if the course is Not at UXI course -->
+					
+				 <div style="padding-bottom:56.25%; position:relative; display:block; width: 100%">
+					 <div class="loading-container" id="loading-container">
+						 <div class="loader"></div>
+					 </div>
+					 <iframe id="project-iframe" width="100%" height="100%"
+						 src="<%=project.projectURL %>"
+						 frameborder="0" allowfullscreen="" style="position:absolute; top:0; left: 0">
+					 </iframe>
+				 </div>
+			 <%}else{%>
+
+				 <!-- This shows the Image if the course is a UXI Course -->
+				 <div class="relative w-full max-w-screen-md h-96 overflow-hidden mx-auto overflow-auto	">
+					 <img class="justify-center m-auto w-full h-full object-cover" src="data:image/*;base64,<%=project.projectImg%>"  alt="UX Project Image" >
+					 
+				 </div>
+				 
+				 
+			 <%}%>
+
 			 
-			 <h1 class="text-3xl font-bold text-center mb-8"><%= project.projectDescription %></h1>
+			 
+				
+				
+
+			<div class="flex justify-center m-auto my-2">
+				<a href="<%=project.projectURL %>" class="relative inline-flex items-center justify-center px-10 py-4 overflow-hidden font-mono font-medium tracking-tighter text-white bg-gray-800 rounded-lg group">
+					 <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-green-500 rounded-full group-hover:w-56 group-hover:h-56"></span>
+					 <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-700"></span>
+					 <span class="relative">See More </span>
+					 </a>
+			</div>
+			  <div class="p-6 border-4 border-lg border-green-500 rounded-lg bg-white shadow-lg mt-10"> 
+				 	<h1 class="text-3xl font-bold text-center mb-8  p-5 mt-2 "><%= project.projectDescription %></h1>
+			  </div> 
+
+
+				 
+
+			 
+			 
 			
 
-			 <a class="block bg-green-500 hover:bg-green-600 text-center text-white font-semibold py-2 px-4 rounded transition-colors duration-300" href="<%=project.projectURL %>">
-				 <button>
-						Project 
-					</button>
-			 </a>
+			 
 
 	</div>
 
-			 <iframe class="m-auto justify-center"width="800" height="500" src="<%=project.projectURL %>"</iframe>
-					 <p> Sus</p>
+				 <script defer>
+					 const iframe = document.getElementById('project-iframe')
+					 const loadingContainer = document.getElementById('loading-container')
+
+					 iframe.onload = function(){
+						 loadingContainer.style.display = 'none'
+						 iframe.style.display = 'block'
+					 }
+				 </script>
+
+		
+	 
 					 
 
 
 
-<%if(project.coursePage.possibleCareerpath === 'No'){%>
-<%}else{%>
-	<p>This is for UX:D</p>
-<%}%>
+
 			 
 				
 

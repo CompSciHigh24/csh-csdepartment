@@ -4,72 +4,78 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>replit</title>
-	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+	<link rel="icon" href="./images/compscihigh.png" type="image/icon type">
+	<title>Courses</title>
+	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" 
+  rel="stylesheet">
 	<link rel="stylesheet" href="/navbar.css" />
 	<link rel="stylesheet" href="/courses.css" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-	
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">		 
+  </script>
 	<link href="/courses.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-	<nav class="navbar navbar-expand-custom navbar-mainbg">
-		<a class="navbar-brand navbar-logo" href="/">CS Department</a>
-		<button
-			class="navbar-toggler"
-			type="button"
-			aria-controls="navbarSupportedContent"
-			aria-expanded="false"
-			aria-label="Toggle navigation"
-		>
-			<i class="fas fa-bars text-white">☰</i>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav ml-auto">
-				<div class="hori-selector">
-					<div class="left"></div>
-					<div class="right"></div>
+	<header>
+		<nav class="bg-green-700  w-full  top-0 left-0 ">
+			<ul class="navigation max-w-[90vw] flex flex-wrap justify-between  relative mx-auto py-4">
+				<div class="flex items-center">
+
+					<a class="logo flex  justify-center items-center hover:no-underline " href="/">
+						<img class="w-15 h-14 mx-1"src="https://static1.squarespace.com/static/5b328976aa49a1b7b46b89c3/t/5b328c90575d1ff0174390ba/1710002027821/">
+
+						<h3 class="font-bold text-2xl mx-3  text-white hover:text-green">CS Department</h3>
+
+
+
+					</a>
+
 				</div>
-				<li class="nav-item ">
-					<a class="nav-link" href="/"
-						><i class="fas fa-tachometer-alt"></i>Home</a
-					>
-				</li>
-				<li class="nav-item ">
-					<a class="nav-link" href="/teacher"
-						><i class="far fa-address-book"></i>Our Staff</a
-					>
-				</li>
-				<li class="nav-item active">
-					<a class="nav-link" href="/course"
-						><i class="far fa-clone"></i>Courses</a
-					>
-				</li>
+
+				<input type="checkbox" id="check" />
+
+				<div class="p-4">
+					<label for="check" class="open-menu text-4xl text-white">☰</label>
+				</div>
+
+				<span class="menu p-100 flex [&>li]:pl-8 [&>li>a]:text-center [&>li>a]:relative [&>li>a]:transition [&>li>a]:duration-200 [&>li>a]:ease-in-out [&>li>a]:font-medium [&>li>a]:text-lg">
+					<div class="menu-items flex justify-center items-center  text-xl font-bold p-2">
+						<li><a class="hover:no-underline p-3 rounded-lg hover:bg-green-800 text-white duration-100 mx-1" href="/">Home</a></li>
+						<li><a class="hover:no-underline p-3 rounded-lg hover:bg-green-800 text-white duration-100 mx-1" href="/teacher">Our Team</a></li>
+						<li><a class="hover:no-underline p-3 rounded-lg hover:bg-green-800 text-white duration-100 mx-1" href="/course"> Courses</a></li>
+					</div>
+
+
+
+
+					<label for="check" class="close-menu text-white ">X</label>
+				</span>
+
 
 			</ul>
-		</div>
-	</nav>
-
+		</nav>
+	</header>
 	
 	
 	<!-- https://codepen.io/shunyadezain/pen/GRqoWdG -->
 
-	<h1 class="text-center font-bold text-4xl md:text-5xl lg:text-6xl py-8 bg-gradient-to-r from-green-800 to-white-800 text-white rounded-lg shadow-md">Computer Science Courses</h1><br>
+	<h1 class="text-center font-bold text-4xl md:text-5xl lg:text-6xl py-8 bg-gradient-to-r from-green-800 to-white-800 text-white rounded-lg shadow-md my-5">Course Progression Overview</h1><br>
 
-	<img class="border rounded-lg justify-center m-auto "src="./images/course_pathways.jpg" height="50%">
+	
+	<img class="border border rounded-lg justify-center m-auto w-full h-auto max-w-screen-md"src="./images/course_pathways.jpg" >
+	</div>
 
 	
 		
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-col-3 lg:grid-cols-4 px-10">
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-col-3 lg:grid-cols-4 ">
 	<%
 		courses.sort((a,b) => a.courseGrade -b.courseGrade) 
 		<!-- This sorts the courses array before they are displayed -->
 		for(let i=0; i<courses.length; i++){%>
 		
-		<div class="course-card m-3">
-			<div class="folder ">
+		<div class="course-card p-2">
+			<div class="folder  ">
 				
 
 				<div class="folder__back">
@@ -107,8 +113,9 @@
 	<footer class="footer bg-green-700 text-white p-10 text-center mt-8 bottom-0 w-full ">
 		<h2>
 			Contact US!
+			@
 		</h2>
-			<p> @csrocks@compscihigh.org</p>
+			<p>ComputerScienceTeam@compscihigh.org</p>
 	</footer>
 	
 	<script src="/navbar.js"></script>

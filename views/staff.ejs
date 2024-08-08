@@ -7,119 +7,218 @@
 	<link rel="stylesheet" href="/staff.css">
 	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/navbar.css" />
+	<script src="https://cdn.tailwindcss.com"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+	<link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+	
 	</head>
-	<title>List</title>
+	<link rel="icon" href="./images/compscihigh.png" type="image/icon type">
+
+	<title>Our Team</title>
 
 </head>
 
-<body>
-	<nav class="navbar navbar-expand-custom navbar-mainbg !bg-white-900 ">
-		<a class="navbar-brand navbar-logo" href="/">CS Department</a>
-		<button
-			class="navbar-toggler"
-			type="button"
-			aria-controls="navbarSupportedContent"
-			aria-expanded="false"
-			aria-label="Toggle navigation"
-		>
-			<i class="fas fa-bars text-white">☰</i>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav ml-auto">
-				<div class="hori-selector">
-					<div class="left"></div>
-					<div class="right"></div>
-				</div>
-				<li class="nav-item ">
-					<a class="nav-link" href="/"
-						><i class="fas fa-tachometer-alt"></i>Home</a
-					>
-				</li>
-				<li class="nav-item active">
-					<a class="nav-link" href="/teacher"
-						><i class="far fa-address-book"></i>Our Staff</a
-					>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/course"
-						><i class="far fa-clone"></i>Courses</a
-					>
-				</li>
-				
-			</ul>
-		</div>
-	</nav>
+<body class="bg-back">
+	<header >
+		<nav id="navbar" class="bg-green-700  w-full  top-0 left-0 ">
+			<ul class="navigation max-w-[90vw] flex flex-wrap justify-between  relative mx-auto py-4">
+				<div class="flex items-center">
 
-	<h1 class="text-center font-bold text-4xl md:text-5xl lg:text-6xl py-8 bg-gradient-to-r from-green-800 to-white-800 text-white rounded-lg shadow-md"> Staff </h1>
+					<a class="logo flex  justify-center items-center hover:no-underline " href="/">
+						<img class="w-15 h-14 mx-1"src="https://static1.squarespace.com/static/5b328976aa49a1b7b46b89c3/t/5b328c90575d1ff0174390ba/1710002027821/">
+
+						<h3 class="font-bold text-2xl mx-3  text-white hover:text-green">CS Department</h3>
+
+
+
+					</a>
+
+				</div>
+
+				<input type="checkbox" id="check" />
+
+				<div class="p-4">
+					<label for="check" class="open-menu text-4xl text-white">☰</label>
+				</div>
+
+				<span class="menu p-100 flex [&>li]:pl-8 [&>li>a]:text-center [&>li>a]:relative [&>li>a]:transition [&>li>a]:duration-200 [&>li>a]:ease-in-out [&>li>a]:font-medium [&>li>a]:text-lg">
+					<div class="menu-items flex justify-center items-center  text-xl font-bold p-2">
+						<li><a class="hover:no-underline p-3 rounded-lg hover:bg-green-800 text-white duration-100 mx-1" href="/">Home</a></li>
+						<li><a class="hover:no-underline p-3 rounded-lg hover:bg-green-800 text-white duration-100 mx-1" href="/teacher">Our Team</a></li>
+						<li><a class="hover:no-underline p-3 rounded-lg hover:bg-green-800 text-white duration-100 mx-1" href="/course"> Courses</a></li>
+					</div>
+
+
+
+
+					<label for="check" class="close-menu text-white ">X</label>
+				</span>
+
+
+			</ul>
+		</nav>
+	</header>
+
+	
+
+	
 
 	
 
 
-	<div class="justify-center m-auto mx-auto m-20">
-		
-			<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-10">
-			<%for(i=0; i<Staffinfo.length;i++){%>
-				<div class="staff">
-					<img class="staffProfilePic" src="<%=Staffinfo[i].staffImg%>" alt="Staff proflie picture">
-					<div id="staffInfo underline">
-						<h2> <%= Staffinfo[i].staffName %></h2>
-						
-						<h4 class="border rounded">
-						</h4>
-						<h4 class="">
-							<%= Staffinfo[i].staffTitle %>
-						</h4>
-						<p class="staff-bio" ">
-							<%= Staffinfo[i].staffBio.split(' ').slice(0,30).join(' ') %>... <button class="readMore underline">Read more </button>
-						</p>
-						<p class="fullBio hidden">
-							<%= Staffinfo[i].staffBio %> <button class="readMore underline">Read less </button> 
-						</p>
-						
-						
+	<div class="flex justify-center items-center m-auto mx-auto m-20 p-20  ">
+		<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-10">
+			<div id="app" :class="['container', isSelected ? 'container-selected':'', isReady ? 'container-ready':'']">
+					<div class="team-container">
+							<div class="header">
+									<h2 class="header-title ">Our Team</h2>
+							</div>
+							<div class="person-list">
+									<div class="person" v-for="(person, index) in persons" @click="selectPerson(index, $event)">
+											<img class="person-img" :src="'data:image/*;base64,' + person.staffImg" alt="Staff profile picture">
+											<div class="person-details my-5">
+													<h2 class="person-title">{{person.staffName}}</h2>
+												<h2 class="person-title  border border-green rounded"></h2>
+													<p class="person-desc">{{person.staffTitle}}</p>
+											</div>
+									</div>
+							</div>
 					</div>
-				</div>
-				<%}%>
+					<div class="team-detail">
+							<div class="team-detail-inner" v-if="isOk">
+									<div class="team-detail-left" :style="`background-image:url(data:image/*;base64,${selectedPersonData.staffImg})`">
+											<div class="team-detail-photo">
+													<img  :src="'data:image/*;base64,' + selectedPersonData.staffImg" alt="">
+											</div>
+									</div>
+									<div class="team-detail-right">
+											<div class="team-detail-bio">
+													<div class="team-detail-header p-10">
+															<h2 class="person-title text-3xl">{{selectedPersonData.staffName}}</h2>
+															<p class="person-title  border border-green rounded"></p>
+															<p class="person-desc text-xl">{{selectedPersonData.staffTitle}}</p>
+													</div>
+													<div class="team-detail-bio-content p-10" v-html="selectedPersonData.staffBio">
+													</div>
+											</div>
+									</div>
+							</div>
+					</div>
 			</div>
+			<!-- https://codepen.io/knyttneve/pen/jGaJjr -->
+			
+		</div>
+		
+		
+			
+		
+			
+			
 		
 	</div>
+	
+
 
 		
 
-		<footer class="footer bg-green-700 text-white py-4 text-center mt-8   bottom-0 w-full ">
+
+	
+	
+	
+
+	
+
+	
+
+		
+
+		<footer id="Footer" class="footer bg-green-700 text-white py-4 text-center mt-8   bottom-0 w-full ">
 			<h2>
 				Contact US!
+				@
 			</h2>
-				<p> @csrocks@compscihigh.org</p>
+				<p>  ComputerScienceTeam@compscihigh.org </p>
 		</footer>
 
-		<script defer>
+		<script >
+			const persons = <%- JSON.stringify(Staffinfo) %>
+			
 
-			var readMoreButton = document.querySelectorAll('.readMore')
+				new Vue({
+						el: "#app",
+						data() {
+								return {
+										persons: persons,
+										selectedPersonIndex: null,
+										isSelected: false,
+										selectedPerson: null,
+										inlineStyles: null,
+										isReady: false,
+										isOk: false,
+										selectedPersonData: {
+												staffName: null,
+												staffTitle: null,
+												staffImg: null,
+												staffBio: null
+										}
+								};
+						},
+						methods: {
+								selectPerson(index, el) {
+									document.getElementById('navbar').style.display = 'none'
+									// document.getElementById('page-heading').style.display = 'none'
+									document.getElementById('Footer').style.display = 'none'
+									
+										if (!this.isOk) {
+											
+												this.selectedPersonIndex = index;
+												this.isSelected = true;
+												this.selectedPerson = el.target.closest('.person');
+												this.selectedPerson.classList.add("person-selected");
+												this.selectedPerson.setAttribute(
+														"style",
+														`width:${this.selectedPerson.offsetWidth}px;`
+												);
+												this.selectedPersonData = this.persons[index];
+												window.setTimeout(() => {
+														this.inlineStyles = `width:${this.selectedPerson.offsetWidth}px;height:${this.selectedPerson.offsetHeight}px;left:${this.selectedPerson.offsetLeft}px;top:${this.selectedPerson.offsetTop}px;position:fixed`;
+														this.selectedPerson.setAttribute("style", this.inlineStyles);
+												}, 400);
+												window.setTimeout(() => {
+														this.isReady = true;
+														this.isOk = true;
+												}, 420);
+										} else {
+												this.reset();
+										}
+								},
+								reset() {
+									document.getElementById('navbar').style.display = 'block'
+									// document.getElementById('page-heading').style.display = 'block'
+									document.getElementById('Footer').style.display = 'block'
+										this.isReady = false;
+										window.setTimeout(() => {
+												this.selectedPerson.classList.add("person-back");
+										}, 280);
+										window.setTimeout(() => {
+												this.selectedPerson.setAttribute("style", "");
+										}, 340);
+										window.setTimeout(() => {
+												this.isSelected = false;
+												this.selectedPerson.classList.remove("person-back", "person-selected");
+												this.isOk = false;
+										}, 400);
+								}
+						}
+				});
 
-			readMoreButton.forEach((button)=>{
-				button.addEventListener('click', function(e){
-					e.preventDefault()
+			
 
-					var parentDiv = button.closest('.staff')
+			
 
-					var shortenBio = parentDiv.querySelector('.staff-bio')
-					var fullBio = parentDiv.querySelector('.fullBio')
 
-					if(shortenBio.style.display !== 'none'){
-						shortenBio.style.display = 'none'
-						fullBio.style.display = 'block'
-						this.textContent ="Read more"
-						
-					}else{
-						shortenBio.style.display = 'block'
-						fullBio.style.display = 'none'
-						this.textContent ="Read less"
-					}
-				})
-			})
+			
 			
 			
 			

@@ -4,70 +4,148 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width">
-		<title>replit</title>
+		<link rel="icon" href="https://static1.squarespace.com/static/5b328976aa49a1b7b46b89c3/t/5b328c90575d1ff0174390ba/1710002027821/" type="image/icon type">
+		<title>Project Admin Page</title>
 		<link rel="stylesheet" href="/project.css" />
+		<script src="https://cdn.tailwindcss.com"></script>
 		<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+		<script src="https://cdn.tailwindcss.com"></script>
 	</head>
-	
+
 	<body>
-		
-		
-		
+		<h1 class="text-4xl text-center  mb-8  rounded">
+			Project admin Panel
+		</h1>
+		<p class="border"></p>
+
+
+
 		<div class="container mx-auto py-8">
-					
-	
-			<h1 class="text-xl text-center mb-8 border rounded">
-				Project admin Panel
-			</h1>
-	
-			<div class="flex justify-center mt-8">
-					<button class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 m-5 rounded"
+			<div class="flex justify-center items-center mb-4"">
+							<form class="flex space-x-2" action="/project/admin/access" method="GET">
+								<input type="hidden" name="page" value="1">
+								<select name="courseId" class="px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+									<option value="" disabled selected>Filter Projects by Course</option>
+									<% courses.forEach(course => { %>
+										<option value="<%= course._id %>" <%= courseId === course._id.toString() ? 'selected' : '' %>><%= course.courseName %></option>
+									<% }) %>
+									<option value="" >All Projects</option>
+								</select>
+								<button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Search</button>
+							</form>
+			</div>
+
+
+
+			
+			<p class="text-center text-2xl text-red-500 rounded m-10 ">For Security reasons logout when done !!!</p>
+			 <div class="flex justify-end items-end align-end mx-2">
+					 <a id="logoutBtn" href="#" class="relative inline-flex items-center hover:no-underline justify-center px-10 py-4 overflow-hidden font-mono font-medium tracking-tighter text-white bg-gray-800 rounded-lg group">
+						 <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-red-500 rounded-full group-hover:w-56 group-hover:h-56"></span>
+						 <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-700 hover:no-underline"></span>
+						 <span class="relative flex items-center">
+								 <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none">
+								 <path d="M12.9999 2C10.2385 2 7.99991 4.23858 7.99991 7C7.99991 7.55228 8.44762 8 8.99991 8C9.55219 8 9.99991 7.55228 9.99991 7C9.99991 5.34315 11.3431 4 12.9999 4H16.9999C18.6568 4 19.9999 5.34315 19.9999 7V17C19.9999 18.6569 18.6568 20 16.9999 20H12.9999C11.3431 20 9.99991 18.6569 9.99991 17C9.99991 16.4477 9.55219 16 8.99991 16C8.44762 16 7.99991 16.4477 7.99991 17C7.99991 19.7614 10.2385 22 12.9999 22H16.9999C19.7613 22 21.9999 19.7614 21.9999 17V7C21.9999 4.23858 19.7613 2 16.9999 2H12.9999Z" fill="#000000"/>
+								 <path d="M13.9999 11C14.5522 11 14.9999 11.4477 14.9999 12C14.9999 12.5523 14.5522 13 13.9999 13V11Z" fill="#000000"/>
+								 <path d="M5.71783 11C5.80685 10.8902 5.89214 10.7837 5.97282 10.682C6.21831 10.3723 6.42615 10.1004 6.57291 9.90549C6.64636 9.80795 6.70468 9.72946 6.74495 9.67492L6.79152 9.61162L6.804 9.59454L6.80842 9.58848C6.80846 9.58842 6.80892 9.58778 5.99991 9L6.80842 9.58848C7.13304 9.14167 7.0345 8.51561 6.58769 8.19098C6.14091 7.86637 5.51558 7.9654 5.19094 8.41215L5.18812 8.41602L5.17788 8.43002L5.13612 8.48679C5.09918 8.53682 5.04456 8.61033 4.97516 8.7025C4.83623 8.88702 4.63874 9.14542 4.40567 9.43937C3.93443 10.0337 3.33759 10.7481 2.7928 11.2929L2.08569 12L2.7928 12.7071C3.33759 13.2519 3.93443 13.9663 4.40567 14.5606C4.63874 14.8546 4.83623 15.113 4.97516 15.2975C5.04456 15.3897 5.09918 15.4632 5.13612 15.5132L5.17788 15.57L5.18812 15.584L5.19045 15.5872C5.51509 16.0339 6.14091 16.1336 6.58769 15.809C7.0345 15.4844 7.13355 14.859 6.80892 14.4122L5.99991 15C6.80892 14.4122 6.80897 14.4123 6.80892 14.4122L6.804 14.4055L6.79152 14.3884L6.74495 14.3251C6.70468 14.2705 6.64636 14.1921 6.57291 14.0945C6.42615 13.8996 6.21831 13.6277 5.97282 13.318C5.89214 13.2163 5.80685 13.1098 5.71783 13H13.9999V11H5.71783Z" fill="#000000"/>
+								 </svg>
+							 Logout
+
+						 </span>
+					 </a>
+
+
+			 </div>
+
+			<button class="delete-btn flex justify-start items-start align-start px-4 py-2 bg-red-500 text-white font-semibold rounded shadow-lg transform transition-transform duration-200 ease-in-out hover:bg-red-600 hover:scale-105 active:bg-red-700 active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75 "  onclick="showDeleteManyProject()">
+					<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-1 12H6L5 7m5 4v6m4-6v6m1-9h5m-9 0H5m5-2V5a1 1 0 011-1h2a1 1 0 011 1v2"></path>
+					</svg>
+					Delete Many
+			</button>
+
+			
+
+
+			<div class="flex justify-center mt-8 mb-6 flex">
+					<button class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 m-5 rounded flex "
 							onclick="showCreateProject()">
-							Create new Project
+							<svg xmlns:dc="http://purl.org/dc/elements/1.1/" width="60px" height="60px" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" x="0px" y="0px" viewBox="0 0 100 125"><g transform="translate(0,-952.36218)"><path style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;opacity:1;color:#000000;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans" d="M 24 19 C 21.247299 19 19 21.2473 19 24 L 19 66 C 19 68.7527 21.247299 71 24 71 L 66 71 C 68.752701 71 71 68.7527 71 66 L 71 24 C 71 21.2473 68.752701 19 66 19 L 24 19 z M 24 21 L 66 21 C 67.679296 21 69 22.3207 69 24 L 69 66 C 69 67.6793 67.679296 69 66 69 L 24 69 C 22.320704 69 21 67.6793 21 66 L 21 24 C 21 22.3207 22.320704 21 24 21 z M 44.875 27.96875 A 1.0001 1.0001 0 0 0 44 29 L 44 44 L 29 44 A 1.0001 1.0001 0 0 0 28.8125 44 A 1.0043849 1.0043849 0 0 0 29 46 L 44 46 L 44 61 A 1.0001 1.0001 0 1 0 46 61 L 46 46 L 61 46 A 1.0001 1.0001 0 1 0 61 44 L 46 44 L 46 29 A 1.0001 1.0001 0 0 0 44.875 27.96875 z M 77.90625 28.96875 A 1.0001 1.0001 0 0 0 77.5 30.84375 C 78.39948 31.35953 79 32.34023 79 33.46875 L 79 76 C 79 77.6793 77.679297 79 76 79 L 33.46875 79 C 32.340248 79 31.390784 78.36815 30.875 77.46875 A 1.0077822 1.0077822 0 0 0 29.125 78.46875 C 29.986596 79.97125 31.618872 81 33.46875 81 L 76 81 C 78.752703 81 81 78.7527 81 76 L 81 33.46875 C 81 31.61889 80.002554 29.9866 78.5 29.125 A 1.0001 1.0001 0 0 0 77.90625 28.96875 z " transform="translate(0,952.36218)"/></g></svg>
+							<p class="text-center my-4">
+								Single Project
+							</p>
+
+					</button>
+					<button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 m-5 rounded flex"
+								onclick="showMultiCreateProject()">
+
+						<svg xmlns="http://www.w3.org/2000/svg" width="60px" height="60px"xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 125" style="enable-background:new 0 0 100 100;" xml:space="preserve"><g><rect x="86.8" y="49.6" width="0.1" height="0.3"/></g><g><path d="M25.1,62.2h-11C11.3,62.2,9,59.9,9,57V13.6c0-2.8,2.3-5.1,5.1-5.1H57c2.8,0,5.1,2.3,5.1,5.1v11.1h-3V13.6   c0-1.2-1-2.1-2.1-2.1H14.1c-1.2,0-2.1,1-2.1,2.1V57c0,1.2,1,2.1,2.1,2.1h11V62.2z"/></g><g><path d="M37.9,77h-9.3c-2.8,0-5.1-2.3-5.1-5.1V28.3c0-2.8,2.3-5.1,5.1-5.1h43c2.8,0,5.1,2.3,5.1,5.1v9.8h-3v-9.8   c0-1.2-1-2.1-2.1-2.1h-43c-1.2,0-2.1,1-2.1,2.1v43.5c0,1.2,1,2.1,2.1,2.1h9.3V77z"/></g><g><g><path d="M85.9,91.5H41.6c-2.8,0-5.1-2.3-5.1-5.1V41.5c0-2.8,2.3-5.1,5.1-5.1h44.3c2.8,0,5.1,2.3,5.1,5.1v44.9    C91,89.2,88.7,91.5,85.9,91.5z M41.6,39.4c-1.2,0-2.1,1-2.1,2.1v44.9c0,1.2,1,2.1,2.1,2.1h44.3c1.2,0,2.1-1,2.1-2.1V41.5    c0-1.2-1-2.1-2.1-2.1H41.6z"/></g></g></svg>
+						<p class="text-center my-4">
+							Multi Projects
+						</p>
+
 					</button>
 			</div>
-			
+
 			<div class="card grid grid-cols-1 sm:grid-cols-2 md:grid-col-3 lg:grid-cols-4 gap-10">
+				<%
+					projects.sort((a, b) => a.grade - b.grade)
+				%>
+
 				<% for(let i=0; i<projects.length; i++){ %>
-						<% console.log("testing:", projects[i]); %>
-					
-					
+
+
+
 						<div class="projectContainer bg-green rounded-lg shadow-md p-6">
-							<h1 class="text-xl font-seminold mb-2"><%= projects[i].projectName %></h1>
-							<h3 class="text-xl font-seminold mb-2"> Made by: <%= projects[i].studentName %></h3>
-							<img src="<%=projects[i].projectImg%>" alt="Img" class="w-full mb-4 rounded-lg">
-							<p class="text-gray-800 mb-2">Grade: <%= projects[i].grade%></p>
-							<p class="text-grey-800 mb-2">Year: <%= projects[i].yearMade%></p>
-							<p class="text-grey-800 mb-2">Description: <%= projects[i].projectDescription%></p>
-							<p class="projectId hidden"> <%= projects[i]._id%></p>
-							<button class="edit-btn w-full bg-blue-500 text-white rounded py-2 mt-4"> Edit </button>
-							<button class="delete-btn w-full bg-red-500 text-white rounded py-2 mt-4"> Delete </button>
-	
+							<div class="displayProjects">
+								<h1 class="text-3xl font-seminold mb-2"><%= projects[i].projectName %></h1>
+								<h1 class="text-2xl font-seminold mb-2">From: <% if (projects[i].coursePage && projects[i].coursePage.courseName) { %>
+									<%= projects[i].coursePage.courseName %>
+								<% } else { %>
+									No Course Name Available
+								<% } %>
+								</h1>
+								<h3 class="text-xl font-seminold mb-2"> Made by: <%= projects[i].studentName %></h3>
+								<img src="data:image/*;base64,<%=projects[i].projectImg%>" alt="Img" class="w-full mb-4 w-full h-48 object-cover hover:scale-125 ease-in duration-150 rounded-lg">
+								<p class="text-gray-800 mb-2">Grade: <%= projects[i].grade%></p>
+								<p class="text-grey-800 mb-2">Year: <%= projects[i].yearMade%></p>
+								<p class="text-grey-800 mb-2">Description: <%= projects[i].projectDescription%></p>
+								<p class="projectId hidden"> <%= projects[i]._id%></p>
+								<button class="edit-btn w-full bg-blue-500 text-white rounded py-2 mt-4"> Edit </button>
+								<button class="delete-btn w-full bg-red-500 text-white rounded py-2 mt-4"> Delete </button>
+							</div>
+
 							<div class="editForm hidden">
 								<form id="editProject">
 									<div class="mb-4">
 										<label for="editprojectName" class="block font-bold mb-2">Project Name: </label>
 										<input id="editprojectName" type="text" value="<%= projects[i].projectName%>" class="border rounded-lg px-3 py-2 w-full" required>
-	
-	
+
+
 									</div>
 									<div class="mb-4">
 										<label for="editstudentName" class="block font-bold mb-2">Student Name: </label>
 										<input id="editstudentName" type="text" value="<%=projects[i].studentName%>" class="border rounded-lg px-3 py-2 w-full" required>
-	
-	
+
+
 									</div>
 									<div class="mb-4">
 										<label for="editgrade" class="block font-bold mb-2">Grade: </label>
 										<input id="editgrade" type="number" value="<%=projects[i].grade%>" class="border rounded-lg px-3 py-2 w-full" min="9" max="12"required>
-	
-	
+
+
 									</div>
 									<div class="mb-4">
-										<label for="edityearMade" class="block font-bold mb-2">Year Made: </label>
-										<input id="edityearMade" type="number" value="<%=projects[i].yearMade%>" class="border rounded-lg px-3 py-2 w-full" required>
-	
-	
+										<label for="edityearMade" min="0" class="block font-bold mb-2">Starting School Year Made: </label>
+										<input id="edityearMade" type="number" value="<%=projects[i].yearMade%>" placeholder="2023"class="border rounded-lg px-3 py-2 w-full" required>
+
+
+									</div>
+									<div class="mb-4">
+										<label for="editendingSchoolYear" class="block font-bold mb-2">Ending School Year: </label>
+										<input id="editendingSchoolYear" min="0" max="99" type="number" value="<%=projects[i].endingSchoolYear%>" placeholder="Ex: <%=projects[i].yearMade%> - 24"class="border rounded-lg px-3 py-2 w-full" required>
+
+
 									</div>
 									<div class="mb-4">
 										<label for="editmadeUsing" class="block font-bold mb-2">This Project was made using: </label>
@@ -76,37 +154,45 @@
 									</div>
 									<div class="mb-4">
 										<label for="editprojectImg" class="block font-bold mb-2">Project Img Url: </label>
-										<input id="editprojectImg" type="text" value="<%=projects[i].projectImg%>" class="border rounded-lg px-3 py-2 w-full" required>
+										<input id="editprojectImg" type="file" value="<%=projects[i].projectImg%>"accept="image/*" class="border rounded-lg px-3 py-2 w-full">
+										<img src="data:image/*;base64,<%= projects[i].projectImg %>">
 
 
 									</div>
 									<div class="mb-4">
 										<label for="editprojectDescription" class="block font-bold mb-2">Project Description: </label>
 										<textarea type="text" id="editprojectDescription" class="border rounded-lg px-3 py-2 w-full" required><%=projects[i].projectDescription%></textarea>
-	
-	
+
+
 									</div>
 									<div class="mb-4">
-										<label for="editprojectURL" class="block font-bold mb-2">Project URL (github link): </label>
+										<label for="editprojectURL" class="block font-bold mb-2">Project URL (deploy link): </label>
 										<input id="editprojectURL" type="text" value="<%=projects[i].projectURL%>" class="border rounded-lg px-3 py-2 w-full" required>
-	
-	
+
+
 									</div>
-	
+
 									<div class="mb-4">
 										<label for="editcoursePage" class="block font-bold mb-2">For Course? </label>
 										<select id="editcoursePage" class="border rounded-lg px-3 py-2 w-full" required >
+
+											<% if (!projects[i].coursePage || !projects[i].coursePage.courseName) { %>
+												<option value="">Select a course</option>
+											<% } %>
+
 											
+
 											<% courses.forEach(function(course) { %>
-												<option value="<%= course._id %>" <%= (projects[i].coursePage.toString() && projects[i].coursePage._id.toString() === course._id.toString()) ? 'selected' : '' %>><%= course.courseName %> </option> 
-												<!-- This starts at the course -->
-											<% })%>	
-												
-										
-											
+														<option value="<%= course._id %>" <%= (projects[i].coursePage?.toString() && projects[i].coursePage?._id?.toString() === course._id.toString()) ? 'selected' : '' %>><%= course.courseName %></option> 
+														<!-- This starts at the course -->
+											<% }) %>
+
+
+
+
 										</select>
-	
-	
+
+
 									</div>
 											<div class="flex justify-end">
 													<button type="button"
@@ -114,19 +200,90 @@
 															onclick="hideEditForm(this.closest('.editForm'))">Cancel</button>
 													<button type="submit" class="bg-green-500 text-white font-semibold py-2 px-4  rounded">Save</button>
 											</div>
-												
-	
-									
-									
+
+
+
+
 								</form>
 							</div>
-							
+
 						</div>
-				
-					
+
+
 				<%}%>		
-	
-	
+
+			</div>
+
+
+					<div class="flex justify-center mt-8">
+						<% if (hasPreviousPage) { %>
+							<a href="/project/admin/access?page=<%= previousPage %><%= courseId ? '&courseId=' + courseId : '' %>" class="px-4 py-2 mx-1 bg-blue-500 text-white rounded">Previous</a>
+						<% } %>
+
+						<% for (let i = 1; i <= totalPages; i++) { %>
+							<a href="/project/admin/access?page=<%= i %><%= courseId ? '&courseId=' + courseId : '' %>" class="px-4 py-2 mx-1 <%= currentPage === i ? 'bg-blue-700' : 'bg-blue-500' %> text-white rounded"><%= i %></a>
+						<% } %>
+
+						<% if (hasNextPage) { %>
+							<a href="/project/admin/access?page=<%= nextPage %><%= courseId ? '&courseId=' + courseId : '' %>" class="px-4 py-2 mx-1 bg-blue-500 text-white rounded">Next</a>
+						<% } %>
+
+						<% if (lastPage) { %>
+							<a href="/project/admin/access?page=<%= lastPage %><%= courseId ? '&courseId=' + courseId : '' %>" class="px-4 py-2 mx-1 bg-blue-500 text-white rounded">Last Page</a>
+						<% } %>
+					</div>
+
+
+
+
+							
+
+		<div class="fixed z-10 inset-0 overflow-y-auto hidden" id="deleteMany">
+			<div class="flex items-center justify-center min-h-screen">
+				<div class="bg-white rounded-lg shadow-lg p-6">
+					<h2 class="text-2xl font-bold mb-4">Select all the Projects You want to delete</h2>
+					<form id="deleteManyForm">
+						<div class="mb-4 grid grid-cols-1 gap-4 overflow-auto max-h-64 px-4">
+							<%
+								allProjects.sort((a, b) => a.grade - b.grade)
+							%>
+							<% for(let i=0; i < allProjects.length; i++){ %>
+								<div class="flex items-center space-x-2 align-center">
+									<input name="projectId" value="<%= allProjects[i]._id %>" type="checkbox">
+									<label for="<%= allProjects[i]._id %>" class="block font-bold mb-2"><%= allProjects[i].projectName %></label>
+									<div>
+										<h3>
+											From: 
+											<% if (allProjects[i].coursePage && allProjects[i].coursePage.courseName) { %>
+												<%= allProjects[i].coursePage.courseName %>
+											<% } else { %>
+												No Course Name Available
+											<% } %>
+										</h3>
+										<h4> by <%= allProjects[i].studentName %></h4>
+									</div>
+								</div>
+							<% } %>
+						</div>
+						<div class="flex justify-end">
+							<button type="button"
+											class="bg-green-500 text-white font-semibold py-2 px-4 rounded mr-2"
+											onclick="hideDeleteManyProject()">Cancel</button>
+							<button type="submit" class="bg-red-500 text-white font-semibold py-2 px-4 rounded">Delete the Selected Projects</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+			
+
+
+			
+					
+		
+
+
 					<div class="fixed z-10 inset-0 overflow-y-auto hidden  " id="createProject">
 							<div class="flex items-center justify-center min-h-screen">
 									<div class="bg-white rounded-lg shadow-lg p-6">
@@ -135,25 +292,25 @@
 													<div class="mb-4">
 														<label for="projectName" class="block font-bold mb-2">Project Name: </label>
 														<input id="projectName" type="text"  class="border rounded-lg px-3 py-2 w-full" required>
-	
-	
+
+
 													</div>
 													<div class="mb-4">
 														<label for="studentName" class="block font-bold mb-2">Student Name: </label>
 														<input id="studentName" type="text"  class="border rounded-lg px-3 py-2 w-full" required>
-	
-	
+
+
 													</div>
 													<div class="mb-4">
 														<label for="grade" class="block font-bold mb-2">Grade: </label>
 														<input id="grade" type="number" class="border rounded-lg px-3 py-2 w-full" min="9" max="12"required>
-	
-	
+
+
 													</div>
 													<div class="mb-4">
 														<label for="madeUsing" class="block font-bold mb-2">This Project was made using: </label>
 														<textarea type="text" id="madeUsing" class="border rounded-lg px-3 py-2 w-full" required></textarea>
-	
+
 													</div>
 												<div class="mb-4">
 													<label for="yearMade" class="block font-bold mb-2">Year Made: </label>
@@ -162,39 +319,39 @@
 
 												</div>
 												<div class="mb-4">
-													<label for="projectImg" class="block font-bold mb-2">Project Img Url (image link): </label>
-													<input id="projectImg" type="text" placeholder="https://placehold.co/600x400" class="border rounded-lg px-3 py-2 w-full" required>
+													<label for="projectImg" class="block font-bold mb-2">Upload Project Img</label>
+													<input id="projectImg" type="file" class="border rounded-lg px-3 py-2 w-full" accept="image/*" required>
 
 
 												</div>
 													<div class="mb-4">
 														<label for="projectDescription" class="block font-bold mb-2">Project Description: </label>
 														<textarea type="text" id="projectDescription" class="border rounded-lg px-3 py-2 w-full" required></textarea>
-	
-	
+
+
 													</div>
 													<div class="mb-4">
-														<label for="projectURL" class="block font-bold mb-2">Project URL (github link): </label>
-														<input id="projectURL" type="text" placeholder="https://example.githubLink.com" class="border rounded-lg px-3 py-2 w-full" required>
-	
-	
+														<label for="projectURL" class="block font-bold mb-2">Project URL (Deploy link): </label>
+														<input id="projectURL" type="text" placeholder="https://example.websiteDomainName.com" class="border rounded-lg px-3 py-2 w-full" required>
+
+
 													</div>
 													<div class="mb-4">
 														<label for="coursePage" class="block font-bold mb-2">For Course? </label>
 														<select id="coursePage" class="border rounded-lg px-3 py-2 w-full" required >
 															<option value="">
 																Select a course
-	
+
 															</option>
 															<% courses.forEach(function(course) { %>
 																<option value="<%= course._id %>"><%= course.courseName %></option>
 															<% })%>	
-	
-	
-	
+
+
+
 														</select>
-	
-	
+
+
 													</div>
 																<div class="flex justify-end">
 																		<button type="button"
@@ -209,134 +366,160 @@
 					</div>
 			</div>
 		</div>
+
+
+		<div class="fixed z-10 inset-0 overflow-y-auto hidden" id="multiCreateProject">
+				<div class="flex items-center justify-center min-h-screen">
+					<div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-4xl">
+						<h2 class="text-2xl font-bold mb-4">Create Multiple Projects</h2>
+						<form id="multiCreateProjectForm">
+							<div id="projectForms"></div>
+							<button type="button" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded mr-2" onclick="addProjectForm()">Add Project</button>
+							<div class="flex justify-end mt-4">
+								<button type="button" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded mr-2" onclick="hideMultiProjectForm()">Cancel</button>
+								<button type="submit" class="bg-green-500 text-white font-semibold py-2 px-4 rounded">Create Projects</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+
+		<script src="/projectAdminss.js" defer>
+
+		</script>
 		<script>
-				function showCreateProject() {
-						document.getElementById('createProject').classList.remove('hidden');
-				}
+			
 
-				function hideProjectForm() {
-						document.getElementById('createProject').classList.add('hidden');
-						document.getElementById('createProjectForm').reset();
-				}
+			
+			function addProjectForm() {
+			const projectForm = document.createElement('div');
+			projectForm.className = 'project-form mb-6 border-b pb-6';
+			projectForm.innerHTML = `
+				<h3 class="text-xl font-bold mb-2">Project ${document.querySelectorAll('.project-form').length + 1}</h3>
+				<div class="mb-4">
+					<label class="block font-bold mb-2">Project Name:</label>
+					<input type="text" class="projectName border rounded-lg px-3 py-2 w-full" required>
+				</div>
+				<div class="mb-4">
+					<label class="block font-bold mb-2">Student Name:</label>
+					<input type="text" class="studentName border rounded-lg px-3 py-2 w-full" required>
+				</div>
+				<div class="mb-4">
+					<label class="block font-bold mb-2">Grade:</label>
+					<input type="number" class="grade border rounded-lg px-3 py-2 w-full" min="9" max="12" required>
+				</div>
+				<div class="mb-4">
+					<label class="block font-bold mb-2">Year Made:</label>
+					<input type="number" class="yearMade border rounded-lg px-3 py-2 w-full" required>
+				</div>
+				<div class="mb-4">
+					<label class="block font-bold mb-2">Made Using:</label>
+					<textarea class="madeUsing border rounded-lg px-3 py-2 w-full" required></textarea>
+				</div>
+				<div class="mb-4">
+					<label class="block font-bold mb-2">Project Image:</label>
+					<input type="file" class="projectImg border rounded-lg px-3 py-2 w-full" accept="image/*" required>
+				</div>
+				<div class="mb-4">
+					<label class="block font-bold mb-2">Project Description:</label>
+					<textarea class="projectDescription border rounded-lg px-3 py-2 w-full" required></textarea>
+				</div>
+				<div class="mb-4">
+					<label class="block font-bold mb-2">Project URL:</label>
+					<input type="text" class="projectURL border rounded-lg px-3 py-2 w-full" required>
+				</div>
+				<div class="mb-4">
+					<label class="block font-bold mb-2">Course:</label>
+					<select class="coursePage border rounded-lg px-3 py-2 w-full" required>
+						<option value="">Select a course</option>
+						<% courses.forEach(function(course) { %>
+							<option value="<%= course._id %>"><%= course.courseName %></option>
+						<% }) %>
+					</select>
+				</div>
+			`;
+			document.getElementById('projectForms').appendChild(projectForm);
+			}
 
-				function showEditForm(editForm) {
-					const projectContainer = editForm.closest('.projectContainer');
-					projectContainer.classList.remove('hidden');
-					editForm.classList.remove('hidden')
-				}
+			document.getElementById('multiCreateProjectForm').addEventListener('submit', (e) => {
+					e.preventDefault();
+					const projectForms = document.querySelectorAll('.project-form');
+					const projects = [];
 
-				function hideEditForm(editForm) {
-					const projectContainer = editForm.closest('.projectContainer');
-					projectContainer.classList.remove('hidden')
+					projectForms.forEach((form, index) => {
+							const fileInput = form.querySelector('.projectImg');
+							let base64Image = null;
 
-					editForm.classList.add('hidden')
-					
-				}
+							if (fileInput.files[0]) {
+									const reader = new FileReader();
+									reader.readAsDataURL(fileInput.files[0]);
+									reader.onloadend = function() {
+											base64Image = reader.result.split(',')[1];
 
-				document.querySelectorAll(".delete-btn").forEach((button) => {
-						button.addEventListener("click", () => {
-								const projectContainer = button.closest(".projectContainer");
-								const projectName = projectContainer.querySelector("h1").textContent.trim();
-								const projectId = projectContainer.querySelector(".projectId").textContent.trim();
-								console.log("Here the project id : ", projectId)
-								if (confirm(`Are you sure you want to delete ${projectName}?`)) {
-										fetch(`/project/${projectId}`, {
-												method: "DELETE",
-												headers: { "Content-Type": "application/json; charset=UTF-8" },
-										})
-												.then((response) => response.json())
-												.then((json) => {
-														console.log(json);
-														location.reload();
-												})
-												.catch((error) => {
-														console.error('Error:', error);
-												});
-								}
-						});
-				});
+											const projectData = {
+													projectName: form.querySelector('.projectName').value,
+													studentName: form.querySelector('.studentName').value,
+													grade: form.querySelector('.grade').value,
+													yearMade: form.querySelector('.yearMade').value,
+													madeUsing: form.querySelector('.madeUsing').value,
+													projectDescription: form.querySelector('.projectDescription').value,
+													projectURL: form.querySelector('.projectURL').value,
+													coursePage: form.querySelector('.coursePage').value,
+													projectImg: base64Image
+											};
+											projects.push(projectData);
 
-				document.getElementById('createProjectForm').addEventListener('submit', (e) => {
-						e.preventDefault();
+											if (index === projectForms.length - 1) {
+													sendProjectsData(projects);
+											}
+									};
+							} else {
+									const projectData = {
+											projectName: form.querySelector('.projectName').value,
+											studentName: form.querySelector('.studentName').value,
+											grade: form.querySelector('.grade').value,
+											yearMade: form.querySelector('.yearMade').value,
+											madeUsing: form.querySelector('.madeUsing').value,
+											projectDescription: form.querySelector('.projectDescription').value,
+											projectURL: form.querySelector('.projectURL').value,
+											coursePage: form.querySelector('.coursePage').value,
+											projectImg: null
+									};
+									projects.push(projectData);
 
+									if (index === projectForms.length - 1) {
+											sendProjectsData(projects);
+									}
+							}
+					});
+			});
 
-
-						const formData = {
-							projectName: document.getElementById('projectName').value,
-							studentName: document.getElementById('studentName').value,
-							grade: document.getElementById('grade').value,
-							yearMade: document.getElementById('yearMade').value,
-							madeUsing: document.getElementById('madeUsing').value,
-							projectImg: document.getElementById('projectImg').value,
-							projectDescription: document.getElementById('projectDescription').value,
-							projectURL: document.getElementById('projectURL').value,
-							coursePage: document.getElementById('coursePage').value,
-						};
-						fetch('/project', {
-								method: "POST",
-								headers: { "Content-Type": "application/json; charset=UTF-8" },
-								body: JSON.stringify(formData)
-						})
-								.then((response) => {
-
-									response.json()
-								})
-								.then(data => {
-										console.log("Project created: ", data);
-										hideProjectForm();
-										location.reload();
-								})
-								.catch(error => {
-										console.error('Error: ', error);
-								});
-				});
-
-				document.querySelectorAll('.edit-btn').forEach((button) => {
-						button.addEventListener('click', () => {
-							const projectContainer = button.closest(".projectContainer");
-							const projectId = projectContainer.querySelector(".projectId").textContent.trim();
-								const editForm = projectContainer.querySelector('.editForm');
-
-								 
+			function sendProjectsData(projects) {
+					console.log("Sending projects data:", projects);
+					fetch('/project/multi', {
+							method: 'POST',
+							headers: {
+									'Content-Type': 'application/json',
+							},
+							body: JSON.stringify(projects)
+					})
+					.then(response => response.json())
+					.then(data => {
+							console.log('Projects created:', data);
+							alert('All the Projects have been created')
+							hideMultiProjectForm();
+							location.reload()
+					})
+					.catch(error => {
+						alert('Something went wrong')
+						console.error('Error:', error);
+					});
+			}
 
 
-
-								showEditForm(editForm);
-
-								editForm.addEventListener('submit', (e) => {
-										e.preventDefault();
-										const formData = {
-												projectName: editForm.querySelector('#editprojectName').value,
-												studentName: editForm.querySelector('#editstudentName').value,
-												grade: editForm.querySelector('#editgrade').value,
-												yearMade: editForm.querySelector('#edityearMade').value,
-											madeUsing: editForm.querySelector('#editmadeUsing').value,
-												projectImg: editForm.querySelector('#editprojectImg').value,
-												projectDescription: editForm.querySelector('#editprojectDescription').value,
-												projectURL: editForm.querySelector('#editprojectURL').value,
-												coursePage: editForm.querySelector('#editcoursePage').value,
-										};
-
-										fetch(`/project/${projectId}`, {
-												method: 'PATCH',
-												headers: {
-														'Content-Type': 'application/json',
-												},
-												body: JSON.stringify(formData),
-										})
-												.then((response) => response.json())
-												.then((data) => {
-														console.log('Course updated:', data);
-														hideEditForm(editForm);
-														location.reload();
-												})
-												.catch((error) => {
-														console.error('Error:', error);
-												});
-								});
-						});
-				});
 		</script>
 	</body>
-		
+
 </html>

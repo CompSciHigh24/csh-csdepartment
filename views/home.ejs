@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" href="./images/compscihigh.png" type="image/icon type">
+		<title>Home</title>
+		<link rel="stylesheet" href="home.css" />
+		<link rel="stylesheet" href="navbar.css" />
+		<link rel="stylesheet" href="card.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollSmoother.min.js"></script>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+		<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+	<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#787878]">
+	
+
+	<header>
+		<nav class="bg-green-700  w-full  top-0 left-0 ">
+			<ul class="navigation max-w-[90vw] flex flex-wrap justify-between  relative mx-auto py-4">
+				<div class="flex items-center">
+
+					<a class="logo flex  justify-center items-center hover:no-underline " href="/">
+						<img class="w-15 h-14 mx-1"src="https://static1.squarespace.com/static/5b328976aa49a1b7b46b89c3/t/5b328c90575d1ff0174390ba/1710002027821/">
+
+						
+						<h3 class="font-bold text-2xl mx-3 text-white hover:text-green">CS Department</h3>
+						
+
+
+
+					</a>
+
+				</div>
+
+				<input type="checkbox" id="check" />
+
+				<div class="p-5 sm:my-2">
+					<label for="check" class="open-menu text-4xl text-white">☰</label>
+				</div>
+
+				<span class="menu p-100 flex [&>li]:pl-8 [&>li>a]:text-center [&>li>a]:relative [&>li>a]:transition [&>li>a]:duration-200 [&>li>a]:ease-in-out [&>li>a]:font-medium [&>li>a]:text-lg">
+					<div class="menu-items flex justify-center items-center  text-xl font-bold p-2">
+						<li><a class="hover:no-underline p-3 rounded-lg hover:bg-green-800 text-white duration-100 mx-1" href="/">Home</a></li>
+						<li><a class="hover:no-underline p-3 rounded-lg hover:bg-green-800 text-white duration-100 mx-1" href="/teacher">Our Team</a></li>
+						<li><a class="hover:no-underline p-3 rounded-lg hover:bg-green-800 text-white duration-100 mx-1" href="/course"> Courses</a></li>
+					</div>
+
+
+
+
+					<label for="check" class="close-menu text-white">X</label>
+				</span>
+
+
+			</ul>
+		</nav>
+	</header>
+
+
+
+
+	<div class="firstbgimg">
+			<div class="caption text-center "> <span class="rounded-lg text-center  ">
+					<img class="m-auto justify-center  rounded"src="https://static1.squarespace.com/static/5b328976aa49a1b7b46b89c3/t/5b328c90575d1ff0174390ba/1710002027821/">
+
+			</span> </div>
+	</div>
+	<div class="hide lg:block text-white-700 bg-green-700 text-center lg:text-left p-36 text-xl top-section">
+		<div class="mb-3">
+			<h3 class="text-center text-white text-4xl">CS Department</h3>
+		</div>
+		<p class="border"></p>
+			
+			
+			<p class="text-xl text-white p-2 mt-3 text-center"> The Computer Science Department at Comp Sci High is committed to empowering the next generation of Computer Scientists and technologists.<br> Our department offers a rigorous curriculum that is designed to provide students with strong foundational skills in various coding principles and practices. <br>Technology has historically marginalized people of color and we aim to build up our students to not only navigate, but also to transform the spaces they are in. <br>From introductory to Advanced Placement courses, our program is tailored to the diverse interests of our students. Our dedicated faculty bring invaluable industry experience and academic expertise to the classroom, ensuring that students receive a high-quality Computer Science education.  </p>
+	</div>
+	<div class="secondbgimg justify-center m-auto">
+			
+		<div class="hide lg:block text-white-700 bg-green-700 text-center lg:text-left p-36 text-xl top-section">
+			<div class="mb-3">
+				<h3 class="text-center text-white   text-4xl">Comp sci high's goal</h3>
+			</div>
+			<p class="border"></p>
+
+
+				<p class="text-xl text-white p-2 mt-3 text-center"> To use the power of education, technology, and community to become an engine of opportunity and a force for economic freedom in the South Bronx. Our mission is to ensure every student graduates with college acceptance letters, high tech skills, real work experience, and a plan to turn those opportunities into a successful career.  </p>
+		</div>
+		
+			
+
+	</div>
+	<style>
+		.swiper-button-next, .swiper-button-prev {
+			color: white !important;
+			background-image: none !important;
+		}
+
+		.swiper-pagination-bullet{
+			background-color: #05ED98 !important;
+		}
+
+		.swiper-pagination-bullet-active {
+			background-color: white !important;
+		}
+	</style>
+	<div class="hide relative middle-section">
+			<div class="text-gray-400 bg-gray-800 text-center py-12 px-20 text-justify">
+					<p class="text-center text-2xl"> Check out our staff and students bonding </p>
+			</div>
+	</div>
+	<div class="thirdbgimg">
+			<div class="caption"> <span class="  bg-transparent text-25 text-white">
+					<div class="hide  swiper-Imgs">
+						<!-- Additional required wrapper -->
+						<div class="swiper-wrapper">
+							<!-- Slides -->
+							<div class="swiper-slide justify-center m-auto"><img class="justify-center m-auto transform transition duration-500 hover:scale-105" src="./Background:Carousel Images/APCSA Class-2024.png" width="50%" height="10%"></div>
+							
+							<div class="swiper-slide justify-center m-auto"><img class="justify-center m-auto transform transition duration-500 hover:scale-105" src="./images/_team_Halloween.jpg" width="50%" height="50%"></div>
+
+							<div class="swiper-slide justify-center m-auto"><img class="justify-center m-auto transform transition duration-500 hover:scale-105" src="./images/_students_LyricAlex.jpg" width="50%" height="30%"></div>
+
+							<div class="swiper-slide justify-center m-auto"><img class="justify-center m-auto transform transition duration-500 hover:scale-105" src="./Background:Carousel Images/IMG_6210.png" width="25%" height="10%"></div>
+							<div class="swiper-slide justify-center m-auto"><img class="justify-center m-auto transform transition duration-500 hover:scale-105" src="./images/_students_HackPrinceton2.jpg" width="25%" height="10%"></div>
+							
+							<div class="swiper-slide justify-center m-auto"><img class="justify-center m-auto transform transition duration-500 hover:scale-105" src="./Background:Carousel Images/IMG_4822.png" width="25%" height="10%"></div>
+
+							
+							<div class="swiper-slide justify-center m-auto"><img class="justify-center m-auto transform transition duration-500 hover:scale-105" src="./Background:Carousel Images/IMG_9064.png" width="50%" height="10%"></div>
+							<div class="swiper-slide justify-center m-auto"><img class="justify-center m-auto transform transition duration-500 hover:scale-105" src="./images/_team_Halloween2.jpg" width="50%" height="10%"></div>
+
+						</div>
+						<!-- If we need pagination -->
+						<div class="my-10">
+							<div class="swiper-pagination"></div>
+						</div>
+						
+
+						
+						<div class="swiper-button-prev"></div>
+						<div class="swiper-button-next"></div>
+
+						
+						
+					</div>
+			</span> </div>
+	</div>
+
+
+
+
+
+	<div class="hide relative bottom-section">
+			<div class="text-gray-400 bg-gray-800 text-center py-12 px-20 text-justify">
+					<p class="m-auto text-center text-2xl"> View Some Projects Made By Our Students!
+
+
+					</p><br>
+
+					
+
+					<div class="swiper swiper-Projects">
+						<!-- Additional required wrapper -->
+						<div class="swiper-wrapper">
+							<!-- Slides -->
+							<%for(i=0; i<projects.length && i<4; i++){%>
+								<div class="swiper-slide flex justify-center">
+									<div class="max-w-sm rounded overflow-hidden shadow-lg bg-white mb-5 transform transition duration-500 hover:scale-105 hover:rotate-2 hover:shadow-xl">
+										<div class="h-48 overflow-hidden flex justify-center items-center">
+											<img src="data:image/*;base64,<%= projects[i].projectImg%>" class="w-full" alt="<%=projects[i].projectName%>">
+										</div>
+										<div class="px-6 py-4">
+											<div class="font-bold text-xl mb-2 text-center"> <%=projects[i].projectName%></div>
+											<div class="mb-10 ">
+												<p class="text-gray-700 mb-4 text-center">
+													<% 
+														let words = projects[i].projectDescription.split(' ');
+														if (words.length > 30) { %>
+																<%= words.slice(0, 30).join(' ') %> ...
+														<% } else { %>
+																<%= projects[i].projectDescription %>
+														<% } %> 
+
+												</p>
+											</div>
+											<p class="text-gray-700 text-base text-center text-xl">Course: <% if (projects[i].coursePage && projects[i].coursePage.courseName) { %>
+												<%= projects[i].coursePage.courseName %>
+											<% } else { %>
+												No Course Name Available
+											<% } %></p>
+										</div>
+										<div class="flex px-6 pt-4 pb-2 justify-center m-auto">
+												<a href="/project/view?projectId=<%= projects[i]._id %>"
+														class="inline-block bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 hover:no-underline">
+														Check out this project!
+												</a>
+										</div>
+										
+									</div>
+								</div>
+							
+								<%}%>			
+						</div><br>
+						<!-- If we need pagination -->
+						<div class="swiper-pagination"></div>
+
+						<!-- If we need navigation buttons -->
+						<div class="swiper-button-prev"></div>
+						<div class="swiper-button-next"></div>
+
+						<!-- If we need scrollbar -->
+						
+					</div>
+			</div>
+	</div>
+			
+
+
+	<div class="firstbgimg">
+		
+		<div class="caption text-center bg-black bg-opacity-50 text-white py-4">
+				<span class="border rounded-lg text-lg lg:text-2xl ">
+
+					<footer class="footer  text-white  text-center bottom-0 w-full overflow-auto">
+						<h2>
+							Contact US!
+							@
+							<br>
+							ComputerScienceTeam@compscihigh.org
+						</h2>
+
+					</footer>
+
+
+				</span>
+		</div>
+	<script defer src="home.js"></script>
+	<script src="navbar.js"></script>
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+	
+	<!-- <script src="card.js"> -->
+
+	</script>
+
+</body>
+
+</html>

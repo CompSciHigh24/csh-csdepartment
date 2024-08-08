@@ -4,83 +4,189 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>replit</title>
+	<link rel="icon" href="./images/compscihigh.png" type="image/icon type">
+	<title><%= courseName %> Projects</title>
 	<link rel="stylesheet" href="/project.css" />
 	<link rel="stylesheet" href="home.css" />
 	<link rel="stylesheet" href="navbar.css" />
 	<link rel="stylesheet" href="card.css" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> 
+  </script>
+	<script src="https://cdn.tailwindcss.com"></script>
+	
 </head>
 
 <body class="bg-gray-200">
-	<nav class="navbar navbar-expand-custom navbar-mainbg"> <a class="navbar-brand navbar-logo" href="/">CS Department</a> <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fas fa-bars text-white">☰</i> </button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav ml-auto">
-							<div class="hori-selector">
-									<div class="left"></div>
-									<div class="right"></div>
-							</div>
-							<li class="nav-item "> <a class="nav-link" href="/"><i class="fas fa-tachometer-alt"></i>Home</a> </li>
-							<li class="nav-item "> <a class="nav-link" href="/teacher"><i class="far fa-address-book"></i>Our Staff</a> </li>
-							<li class="nav-item active"> <a class="nav-link" href="/course"><i class="far fa-clone"></i>Courses</a> </li>
-					</ul>
-			</div>
-	</nav>
-	<p>
+
+	<header>
+		<nav class="bg-green-700  w-full  top-0 left-0 ">
+			<ul class="navigation max-w-[90vw] flex flex-wrap justify-between  relative mx-auto py-4">
+				<div class="flex items-center">
+
+					<a class="logo flex  justify-center items-center hover:no-underline " href="/">
+						<img class="w-15 h-14 mx-1"src="https://static1.squarespace.com/static/5b328976aa49a1b7b46b89c3/t/5b328c90575d1ff0174390ba/1710002027821/">
+
+						<h3 class="font-bold text-2xl mx-3  text-white hover:text-green">CS Department</h3>
+
+
+
+					</a>
+
+				</div>
+
+				<input type="checkbox" id="check" />
+
+				<div class="p-4">
+					<label for="check" class="open-menu text-4xl text-white">☰</label>
+				</div>
+
+				<span class="menu p-100 flex [&>li]:pl-8 [&>li>a]:text-center [&>li>a]:relative [&>li>a]:transition [&>li>a]:duration-200 [&>li>a]:ease-in-out [&>li>a]:font-medium [&>li>a]:text-lg">
+					<div class="menu-items flex justify-center items-center  text-xl font-bold p-2">
+						<li><a class="hover:no-underline p-3 rounded-lg hover:bg-green-800 text-white duration-100 mx-1" href="/">Home</a></li>
+						<li><a class="hover:no-underline p-3 rounded-lg hover:bg-green-800 text-white duration-100 mx-1" href="/teacher">Our Team</a></li>
+						<li><a class="hover:no-underline p-3 rounded-lg hover:bg-green-800 text-white duration-100 mx-1" href="/course"> Courses</a></li>
+					</div>
+
+
+
+
+					<label for="check" class="close-menu text-white ">X</label>
+				</span>
+
+
+			</ul>
+		</nav>
+	</header>
+
+
+	
+	
+	
+	
+	<div class="container mx-auto p-4">
+		<a href="/course" class="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-green-500 rounded-full shadow-md group">
+			 <span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-green-700 group-hover:translate-x-0 ease">
+			 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+			 </span>
+			 <span class="absolute flex items-center justify-center w-full h-full text-gray-500 transition-all duration-300 transform group-hover:translate-x-full ease">Back to Courses</span>
+			 <span class="relative invisible">Back to Courses</span>
+			 </a>
 		
-	</p>
-	
-
-
-	
-	
-	
-	
-	<div class="container mx-auto py-8">
-			<h1 class="text-center font-bold text-4xl md:text-5xl lg:text-6xl py-8 bg-gradient-to-r from-green-800 to-white-800 text-white rounded-lg shadow-md">
+			<h1 class="text-center font-bold text-4xl md:text-5xl lg:text-6xl py-8 bg-gradient-to-r from-green-800 to-white-800 text-white rounded-lg shadow-md mt-2">
 				<%= courseName %>
 			</h1>
 			<h1 class="text-3xl text-center text-gray-700 border rounded p-10">
 					 <%= courseDescription %>
 			</h1>
 
-			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-auto ">
+			<!-- <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-auto ">
 					<% for(let i=0; i<projects.length; i++){ %>
-							<% console.log("testing:", projects[i]); %>
-							<% if(courseId === projects[i].coursePage._id.toString() ){ %>
-									<div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
-											<img class="w-full h-48 object-cover" src="<%= projects[i].projectImg %>" alt="Project Image">
-											<div class="p-4">
-													<h2 class="text-xl font-bold mb-2"><%= projects[i].projectName %></h2>
-													<h3 class="text-lg font-semibold mb-2">Made by: <%= projects[i].studentName %></h3>
-													<p class="text-gray-700 mb-2">Grade: <%= projects[i].grade %></p>
-													<p class="text-gray-700 mb-2">Year: <%= projects[i].yearMade %></p>
-													<p class="text-gray-700 mb-4"><%= projects[i].projectDescription %></p>
-													<a href="/project/view?projectId=<%= projects[i]._id %>" class="block bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded transition-colors duration-300">View Project</a>
-											</div>
+							<% if(courseId === (projects[i].coursePage?._id?.toString() ?? '')){ %>
+									<div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105 relative">
+											<img class="w-full h-48 object-cover hover:scale-125 ease-in duration-150" src="data:image/*;base64,<%= projects[i].projectImg %>" alt="Project Image">
+										<div class="mb-auto !important p-4">
+												<h2 class="text-xl font-bold mb-2"><%= projects[i].projectName %></h2>
+												<h3 class="text-lg font-semibold mb-2">Made by:<br> <%= projects[i].studentName %></h3>
+												<p class="text-gray-700 mb-2">Grade: <%= projects[i].grade %></p>
+												<p class="text-gray-700 mb-2">Year: <%= projects[i].yearMade %></p>
+												<div>
+													This project was made using:
+													<p class="text-gray-700 mb-2 uppercase font-bold"> <%= projects[i].madeUsing %></p>
+												</div>
+												<div class="mb-10">
+													<p class="text-gray-700">
+														<% 
+															let words = projects[i].projectDescription.split(' ');
+															if (words.length > 30) { %>
+																	<%= words.slice(0, 30).join(' ') %> ...
+															<% } else { %>
+																	<%= projects[i].projectDescription %>
+															<% } %> 
+
+													</p>
+												</div>
+										</div>
+										<div class="mt-auto absolute bottom-0 left-0 w-full">
+												<a href="/project/view?projectId=<%= projects[i]._id %>" class="relative w-full inline-flex items-center justify-center px-10 py-4 overflow-hidden font-mono font-medium tracking-tighter text-white bg-gray-800 rounded-lg group "  style="padding: 10px !important;">
+														<span class="absolute w-0 h-full transition-all duration-500 ease-out bg-green-500 rounded-full group-hover:w-full group-hover:h-full"></span>
+														<span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-700"></span>
+														<span class="relative">View Project</span>
+												</a>
+										</div>
 									</div>
 							<% } %>
 					<% } %>
-			</div>
-	</div>
-	<script type="text/javascript" src="vanilla-tilt.js"></script>
-	<script type="text/javascript">
-		VanillaTilt.init(document.querySelectorAll(".card"), {
-			max: 25,
-			speed: 400,
-			glare: true,
-			'max-glare': 1,
-		});
-	</script>
+			</div> -->
+
+
+		<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-auto ">
+				<% for(let i=0; i<projects.length; i++){ %>
+						
+								<div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105 relative">
+										<img class="w-full h-48 object-cover hover:scale-125 ease-in duration-150" src="data:image/*;base64,<%= projects[i].projectImg %>" alt="Project Image">
+									<div class="mb-auto !important p-4">
+											<h2 class="text-xl font-bold mb-2"><%= projects[i].projectName %></h2>
+											<h3 class="text-lg font-semibold mb-2">Made by:<br> <%= projects[i].studentName %></h3>
+											<p class="text-gray-700 mb-2">Grade: <%= projects[i].grade %></p>
+											<p class="text-gray-700 mb-2">School Year: <%= projects[i].yearMade %></p>
+											<div>
+												This project was made using:
+												<p class="text-gray-700 mb-2 uppercase font-bold"> <%= projects[i].madeUsing %></p>
+											</div>
+											<div class="mb-10">
+												<p class="text-gray-700">
+													<% 
+														let words = projects[i].projectDescription.split(' ');
+														if (words.length > 30) { %>
+																<%= words.slice(0, 30).join(' ') %> ...
+														<% } else { %>
+																<%= projects[i].projectDescription %>
+														<% } %> 
+
+												</p>
+											</div>
+									</div>
+									<div class="mt-auto absolute bottom-0 left-0 w-full">
+											<a href="/project/view?projectId=<%= projects[i]._id %>" class="relative w-full inline-flex items-center justify-center px-10 py-4 overflow-hidden font-mono font-medium tracking-tighter text-white bg-gray-800 rounded-lg group "  style="padding: 10px !important;">
+													<span class="absolute w-0 h-full transition-all duration-500 ease-out bg-green-500 rounded-full group-hover:w-full group-hover:h-full"></span>
+													<span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-700"></span>
+													<span class="relative">View Project</span>
+											</a>
+									</div>
+								</div>
+						
+				<% } %>
+		</div>
+
+			<% if (totalPages > 1) { %>
+				<div class="pagination flex justify-center items-center mt-8">
+					<% if (hasPreviousPage) { %>
+						<a href="/project?courseId=<%= courseId %>&page=<%= previousPage %>" class="px-4 py-2 mx-1 bg-green-500 text-white rounded hover:bg-green-600">Previous</a>
+					<% } %>
+
+					<% for(let i = 1; i <= totalPages; i++) { %>
+						<a href="/project?courseId=<%= courseId %>&page=<%= i %>" class="px-4 py-2 mx-1 <%= currentPage === i ? 'bg-green-600' : 'bg-green-500' %> text-white rounded hover:bg-green-600"><%= i %></a>
+					<% } %>
+
+					<% if (hasNextPage) { %>
+						<a href="/project?courseId=<%= courseId %>&page=<%= nextPage %>" class="px-4 py-2 mx-1 bg-green-500 text-white rounded hover:bg-green-600">Next</a>
+					<% } %>
+				</div>
+			<% } %>
+ 
+
+
+		
+	
 
 						
-				<script src="navbar.js"></script>
-				</script>
+	<script src="navbar.js"></script>
+				
+				
 				
 				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-				<!-- <script src="card.js"> -->
+
+				
 
 				
 
