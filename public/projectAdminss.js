@@ -34,9 +34,7 @@ function showEditForm(editForm) {
 }
 
 function hideEditForm(editForm) {
-	const projectContainer = editForm.closest('.projectContainer');
-	projectContainer.classList.add('hidden');
-	editForm.classList.add('hidden');
+	editForm.classList.add('hidden')
 }
 
 document.getElementById('deleteManyForm').addEventListener('submit', function(e) {
@@ -193,7 +191,8 @@ document.querySelectorAll('.edit-btn').forEach((button) => {
 							})
 							.then((response) => response.json())
 							.then((data) => {
-									hideEditForm(editForm);
+									// hideEditForm(editForm);
+									// alert("Project has been updated")
 									// location.reload()
 							})
 							.catch((error) => {

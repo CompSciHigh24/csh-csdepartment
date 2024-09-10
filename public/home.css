@@ -9,7 +9,7 @@ body, html{
   
 }
 
-.firstbgimg, .secondbgimg, .thirdbgimg{
+.firstbgimg, .secondbgimg, .thirdbgimg, .fourthbgimg{
   position: relative;
   opacity: .65;
   background-attachment: fixed;
@@ -44,6 +44,20 @@ body, html{
   justify-conent: center;
   align-items: center;
 }
+.fourthbgimg {
+  background-image: url("./Background:Carousel Images/IMG_9064.png");
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  opacity: .65;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .caption{
   align-content:center;
   position: absolute;
@@ -95,8 +109,8 @@ h3{
   opacity: 1;
   filter: blur(0);
   transform: scale(1);
-  background-color: #1b5e20;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  /* background-color: #1b5e20; */
+  /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); */
 }
 
 swiper-Imgs.hide{
@@ -131,20 +145,9 @@ swiper-Imgs.show{
 
 
 @media only screen and (max-width: 800px) {
-  .firstbgimg, .secondbgimg, .thirdbgimg {
+  .firstbgimg, .secondbgimg, .thirdbgimg, .fourthbgimg {
     background-attachment: scroll;
   }
 }
 
 
-/* .card{
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  padding:2rem;
-  transition: transform 0.3s ease-in-out;
-}
-
-.card:hover{
-  transform: translateY(-10px)
-} */

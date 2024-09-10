@@ -209,7 +209,7 @@
 								const courseContainer = button.closest(".folder");
 								const courseName = courseContainer.querySelector("p1").textContent.trim();
 								const courseId = courseContainer.querySelector("p2").textContent.trim();
-								if (confirm(`Are you sure you want to delete ${courseName}? If you do all PROJECTS in that COURSE will also be DELETED!!!`)) {
+								if (confirm(`Are you sure you want to delete ${courseName}? All projects in this course will still be able to accessed in the project admin page`)) {
 										fetch(`/course/${courseId}`, {
 												method: "DELETE",
 												headers: { "Content-Type": "application/json; charset=UTF-8" },
@@ -287,11 +287,13 @@
 												.then((response) => response.json())
 												.then((data) => {
 														console.log('Course updated:', data);
+														location.href='/course/admin/access';
 														hideEditForm(editForm);
-														location.reload();
+									
 												})
-												.catch((error) => {
+											.catch((error) => {
 														console.error('Error:', error);
+														
 												});
 								});
 						});

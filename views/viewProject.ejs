@@ -60,6 +60,39 @@
 			iframe{
 				display: none;
 			}
+
+			.lightbox {
+				display:none;
+				position: fixed;
+				z-index: 1000;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0, 0, 0, 0.8);
+				justify-content: center;
+				align-items: center;
+			}
+
+			.lightbox img {
+				max-width: 90%;
+				max-height: 90%;
+				object-fit: contain;
+				margin-left: auto;
+				margin-right: auto;
+				padding-top:5%
+			}
+
+			.close-lightbox {
+				position: absolute;
+				top: 20px;
+				right: 30px;
+				color: #29C815 ;
+				font-size: 30px;
+				cursor: pointer;
+			}
+			
+			
 		</style>
 
 		
@@ -83,11 +116,12 @@
 
 			 <%if(project.coursePage.possibleCareerpath === 'No'){%> 
 
-				 <!-- This shows the Iframe if the course is Not at UXI course -->
+				 <!-- This shows the Iframe if the course is Not a UI/UX course -->
 					
-				 <div style="padding-bottom:56.25%; position:relative; display:block; width: 100%">
+				 <div style="padding-bottom:56.25%; position:relative; display:block; width: 100%; border: 2px solid black">
 					 <div class="loading-container" id="loading-container">
-						 <div class="loader"></div>
+						 <p class="text-white text-lg font-bold">Loading Project</p>
+						 <div class="loader" style="margin-left: 30px;"></div>
 					 </div>
 					 <iframe id="project-iframe" width="100%" height="100%"
 						 src="<%=project.projectURL %>"
@@ -96,11 +130,15 @@
 				 </div>
 			 <%}else{%>
 
-				 <!-- This shows the Image if the course is a UXI Course -->
+				 <!-- This shows the Image if the course is a UI/UX Course -->
 				 <div class="relative w-full max-w-screen-md h-96 overflow-hidden mx-auto overflow-auto	">
 					 <img class="justify-center m-auto w-full h-full object-cover" src="data:image/*;base64,<%=project.projectImg%>"  alt="UX Project Image" >
 					 
 				 </div>
+				
+
+
+				 
 				 
 				 
 			 <%}%>
@@ -111,55 +149,63 @@
 				
 
 			<div class="flex justify-center m-auto my-2">
-				<a href="<%=project.projectURL %>" class="relative inline-flex items-center justify-center px-10 py-4 overflow-hidden font-mono font-medium tracking-tighter text-white bg-gray-800 rounded-lg group">
-					 <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-green-500 rounded-full group-hover:w-56 group-hover:h-56"></span>
-					 <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-700"></span>
-					 <span class="relative">See More </span>
-					 </a>
-			</div>
+					<%if(project.projectURL === 'None'){%>
+						<button onclick="viewImage()" class="relative inline-flex items-center justify-center px-10 py-4 overflow-hidden font-mono font-medium tracking-tighter text-white bg-gray-800 rounded-lg group">
+								<span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-green-500 rounded-full group-hover:w-56 group-hover:h-56"></span>
+								<span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-700"></span>
+								<span class="relative">View Image</span>
+						</button>
+					<%}else{%>
+						<a href="<%=project.projectURL %>" class="relative inline-flex items-center justify-center px-10 py-4 overflow-hidden font-mono font-medium tracking-tighter text-white bg-gray-800 rounded-lg group">
+								<span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-green-500 rounded-full group-hover:w-56 group-hover:h-56"></span>
+								<span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-700"></span>
+								<span class="relative">See More</span>
+						</a>
+					<%}%>
+				
+		</div>
 			  <div class="p-6 border-4 border-lg border-green-500 rounded-lg bg-white shadow-lg mt-10"> 
 				 	<h1 class="text-3xl font-bold text-center mb-8  p-5 mt-2 "><%= project.projectDescription %></h1>
 			  </div> 
 
-
-				 
-
-			 
-			 
-			
-
-			 
-
 	</div>
 
-				 <script defer>
-					 const iframe = document.getElementById('project-iframe')
-					 const loadingContainer = document.getElementById('loading-container')
-
-					 iframe.onload = function(){
-						 loadingContainer.style.display = 'none'
-						 iframe.style.display = 'block'
-					 }
-				 </script>
+	<div id="lightbox" class="lightbox">
+			<span onclick="closeImage()"class="close-lightbox">&times;</span>
+			<img id="lightbox-image" src="data:image/*;base64,<%=project.projectImg%>" alt="Full size project image">
+	</div>
 
 		
-	 
-					 
+	
 
+	 <script defer>
+		 const iframe = document.getElementById('project-iframe')
+		 const loadingContainer = document.getElementById('loading-container')
+		 const lightbox = document.getElementById('lightbox');
 
+		 function viewImage() {
+		 	lightbox.style.display="block"
+		 }
+		 function closeImage() {
+			 lightbox.style.display="none"
+			}
 
-
+		 iframe.onload = function(){
+			 loadingContainer.style.display = 'none'
+			 iframe.style.display = 'block'
+		 }
+		 viewImageBtn.addEventListener('click', () => {
+			 console.log("I GOT HERE!!")
 			 
-				
+			 lightbox.style.display = 'block'; 
+		 });
 
+		
 
+	
+	 </script>
 
-
-
-
-
-
-
-
+		
+	
 	 </body>
 </html>

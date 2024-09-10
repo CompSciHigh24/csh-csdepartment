@@ -17,6 +17,38 @@
 </head>
 
 <body>
+	<style>
+		.lightbox {
+			display:none;
+			position: fixed;
+			z-index: 1000;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.8);
+			justify-content: center;
+			align-items: center;
+		}
+
+		.lightbox img {
+			max-width: 90%;
+			max-height: 90%;
+			object-fit: contain;
+			margin-left: auto;
+			margin-right: auto;
+			padding-top:5%
+		}
+
+		.close-lightbox {
+			position: absolute;
+			top: 20px;
+			right: 30px;
+			color: #29C815 ;
+			font-size: 30px;
+			cursor: pointer;
+		}
+	</style>
 	<header>
 		<nav class="bg-green-700  w-full  top-0 left-0 ">
 			<ul class="navigation max-w-[90vw] flex flex-wrap justify-between  relative mx-auto py-4">
@@ -60,10 +92,15 @@
 	
 	<!-- https://codepen.io/shunyadezain/pen/GRqoWdG -->
 
-	<h1 class="text-center font-bold text-4xl md:text-5xl lg:text-6xl py-8 bg-gradient-to-r from-green-800 to-white-800 text-white rounded-lg shadow-md my-5">Course Progression Overview</h1><br>
+	<h1 class="text-center font-bold text-4xl md:text-5xl lg:text-6xl py-8 bg-gradient-to-r from-green-800 to-white-800 text-white rounded-lg shadow-md my-5">Course Progression</h1><br>
 
 	
-	<img class="border border rounded-lg justify-center m-auto w-full h-auto max-w-screen-md"src="./images/course_pathways.jpg" >
+	<img onclick="openCoursePreviewImage()"class="cursor-pointer border rounded-lg shadow-lg mx-auto p-4 object-contain w-full h-auto max-w-screen-md"src="./images/Screenshot_2024-09-07_125823-removebg-preview.png" >
+	</div>
+
+	<div id="lightbox" class="lightbox">
+			<span onclick="closeImage()"class="close-lightbox">&times;</span>
+			<img class="m-20" width="75%"id="lightbox-image" src="./images/image_2024-09-07_125900305.png" alt="Full size Courses image">
 	</div>
 
 	
@@ -112,7 +149,7 @@
 
 	<footer class="footer bg-green-700 text-white p-10 text-center mt-8 bottom-0 w-full ">
 		<h2>
-			Contact US!
+			Contact us!
 			@
 		</h2>
 			<p>ComputerScienceTeam@compscihigh.org</p>
@@ -120,6 +157,20 @@
 	
 	<script src="/navbar.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+		<script>
+			const lightbox = document.getElementById('lightbox');
+			function openCoursePreviewImage() {
+				lightbox.style.display="block"
+			 }
+			 function closeImage() {
+				 lightbox.style.display="none"
+				}
+			viewImageBtn.addEventListener('click', () => {
+				 console.log("I GOT HERE!!")
+
+				 lightbox.style.display = 'block'; 
+			 });
+		</script>
 </body>
 
 </html>

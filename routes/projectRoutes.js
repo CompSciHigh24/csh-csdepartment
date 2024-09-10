@@ -22,31 +22,31 @@ router.get("/", (req, res) => {
   const page = parseInt(req.query.page) || 1; // Get the page number from query params, default to 1
   
   if (!courseId) {
-    return res.status(404).send("Course Id not given! ");
+    return res.status(404).sendFile(path.join(__dirname, "../public/noCourseID.html"))
   }
   
 
   let query={ coursePage : new ObjectId(courseId) }
 
-    Promise.all([
-      courseProjects
-        .find(query)
-        .skip((page - 1) * projectsPerPage)
-        .limit(projectsPerPage)
-        .populate("coursePage"),
-        courseProjects.countDocuments(query),
-        Course.find({}),
-        courseProjects.find(query).populate("coursePage")
-      
-    ])
-  .then(([projects, totalProjects, courses,allProjects])=>{
-    const totalPages = Math.ceil(totalProjects/ projectsPerPage)
+  Promise.all([
+    courseProjects
+      .find(query)
+      .sort({ _id: -1 })  // Sort by _id in descending order
+      .skip((page - 1) * projectsPerPage)
+      .limit(projectsPerPage)
+      .populate("coursePage"),
+    courseProjects.countDocuments(query),
+    Course.find({}),
+    courseProjects.find(query).populate("coursePage")
+  ])
+  .then(([projects, totalProjects, courses, allProjects]) => {
+    const totalPages = Math.ceil(totalProjects / projectsPerPage);
 
     const courseName = projects[0]?.coursePage?.courseName;
     const courseDescription = projects[0]?.coursePage?.courseDescription;
 
-    if(allProjects.length == 0){
-      return res.status(404).sendFile(path.join(__dirname, "../public/noProjects.html" ))
+    if (allProjects.length == 0) {
+      return res.status(404).sendFile(path.join(__dirname, "../public/noProjects.html"));
     }
 
     
@@ -121,44 +121,54 @@ router.get("/view", (req, res) => {
 
 
 
-router.get("/admin/access", isAuthenticated ,(req, res) => {
-  const page = parseInt(req.query.page) || 1 // this will get the page number from the query param , but it will default to the first page
-  const courseId = req.query.courseId
+router.get("/admin/access", isAuthenticated, (req, res) => {
+  const page = parseInt(req.query.page) || 1; // this will get the page number from the query param , but it will default to the first page
+  const courseId = req.query.courseId;
 
-  let query={}
+  let query = {};
 
-  if(courseId){
-    query.coursePage = new ObjectId(courseId)
+  if (courseId) {
+    query.coursePage = new ObjectId(courseId);
   }
 
   Promise.all([
-
     courseProjects
       .find(query)
+      .sort({ _id: -1 }) // Sort by _id in descending order
       .populate("coursePage")
-      .skip((page-1)*projectsPerPage)
+      .skip((page - 1) * projectsPerPage)
       .limit(projectsPerPage)
       .exec(),
-      courseProjects.countDocuments(query),
-      Course.find({}),
-      courseProjects.find(query).populate("coursePage")
-
-
-
+    courseProjects.countDocuments(query),
+    Course.find({}),
+    courseProjects
+      .find(query)
+      .sort({ _id: -1 })
+      .populate("coursePage")
+      
   ])
+  .then(([paginatedProjects, totalProjects, courses, allProjects]) => {
+    const totalPages = Math.ceil(totalProjects / projectsPerPage);
+    const reverseProjects= allProjects.reverse()
 
-  .then(([paginatedProjects, totalProjects, courses, allProjects])=>{
-    const totalPages = Math.ceil(totalProjects/ projectsPerPage)
-
-    res.render("adminProject.ejs", {projects: paginatedProjects ,courses,currentPage: page,totalPages: totalPages,hasNextPage: page < totalPages,hasPreviousPage: page > 1,nextPage: page+1,previousPage: page -1,lastPage: totalPages, courseId: courseId,allProjects: allProjects} )
-
-    
+    res.render("adminProject.ejs", {
+      projects: paginatedProjects,
+      courses,
+      currentPage: page,
+      totalPages: totalPages,
+      hasNextPage: page < totalPages,
+      hasPreviousPage: page > 1,
+      nextPage: page + 1,
+      previousPage: page - 1,
+      lastPage: totalPages,
+      courseId: courseId,
+      allProjects: reverseProjects
+    });
   })
-  .catch((err)=>{
-    res.status(500).send("Here the error: ",err.message)
-  })
-  
-})
+  .catch((err) => {
+    res.status(500).send("Error: " + err.message);
+  });
+});
 
 
 
@@ -202,6 +212,7 @@ router.delete("/deleteMany/:ids", isAuthenticated, (req, res) => {
 
   courseProjects
     .deleteMany({ _id: { $in: ids } })
+    .sort({ _id: -1 })
     .then((data) => {
       console.log("Delete result:", data)
       if (data.deletedCount === 0) {
@@ -232,7 +243,7 @@ router.post("/", isAuthenticated, fileUploadRoutes.upload.single('projectImg'),(
     projectURL: req.body.projectURL,
     coursePage: req.body.coursePage,
     madeUsing: req.body.madeUsing,
-    endingSchoolYear: req.bodyendingSchoolYear
+
   });
 
   newProject
@@ -246,36 +257,37 @@ router.post("/", isAuthenticated, fileUploadRoutes.upload.single('projectImg'),(
     });
 });
 
-router.post("/multi", isAuthenticated, fileUploadRoutes.upload.single('projectImg'), (req, res) => {
-  
-
+router.post("/multi", fileUploadRoutes.upload.single('projectImg'), (req, res) => {
   const projects = req.body;
+  console.log("Projects received:", projects);
 
-  const projectDocs = projects.map(project => {
-    return {
-      projectName: project.projectName,
-      studentName: project.studentName,
-      grade: project.grade,
-      yearMade: project.yearMade,
-      projectDescription: project.projectDescription,
-      projectImg: project.projectImg,
-      projectURL: project.projectURL,
-      coursePage: project.coursePage,
-      madeUsing: project.madeUsing,
-      endingSchoolYear: req.bodyendingSchoolYear
-    };
-  });
+  if (!Array.isArray(projects)) {
+    return res.status(400).json({ error: "Expected an array of projects" });
+  }
+
+  const projectDocs = projects.map(project => ({
+    projectName: project.projectName,
+    studentName: project.studentName,
+    grade: project.grade,
+    yearMade: project.yearMade,
+    projectDescription: project.projectDescription,
+    projectImg: project.projectImg,
+    projectURL: project.projectURL,
+    coursePage: project.coursePage,
+    madeUsing: project.madeUsing,
+  }));
 
   courseProjects.insertMany(projectDocs)
     .then(savedProjects => {
-      console.log('All projects saved successfully');
+      console.log('All projects saved successfully:', savedProjects.length);
       res.json(savedProjects);
     })
     .catch(err => {
       console.error("Error saving projects:", err);
-      res.status(500).send(err);
+      res.status(500).json({ error: "Failed to save projects", details: err.message });
     });
 });
+
 
 
 router.patch("/:projectId", isAuthenticated,fileUploadRoutes.upload.single('projectImg'),(req, res) => {
@@ -297,7 +309,7 @@ router.patch("/:projectId", isAuthenticated,fileUploadRoutes.upload.single('proj
     coursePage: req.body.coursePage,
     projectImg: base64Image,
     madeUsing: req.body.madeUsing,
-    endingSchoolYear: req.bodyendingSchoolYear
+
   };
 
   courseProjects

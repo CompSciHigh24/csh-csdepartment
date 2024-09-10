@@ -1,5 +1,5 @@
 CSH CS Dept. Website
-Made by Hammond G. and Gabriel C.
+Made by Hammond G. and Gabriel C. (Mainly Hammond)
 
 Our proposal is a website which highlights and displays the work that is done by the Computer Science department at CSH. Our website has a homepage covering general information regarding the computer science department as well as a courses page which shows courses offered from computer science at CSH and their related career pathways. There is also a projects page for each course that highlights the projects made by the students from that course. You can click to view a project which provides a more extensive description of the project as well as the student that created it. Admins can access all of these pages, being able to add, edit, or delete any staff/course/project.
 

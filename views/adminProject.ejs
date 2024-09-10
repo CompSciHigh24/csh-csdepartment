@@ -108,7 +108,8 @@
 								<h3 class="text-xl font-seminold mb-2"> Made by: <%= projects[i].studentName %></h3>
 								<img src="data:image/*;base64,<%=projects[i].projectImg%>" alt="Img" class="w-full mb-4 w-full h-48 object-cover hover:scale-125 ease-in duration-150 rounded-lg">
 								<p class="text-gray-800 mb-2">Grade: <%= projects[i].grade%></p>
-								<p class="text-grey-800 mb-2">Year: <%= projects[i].yearMade%></p>
+								<% let endingYear = projects[i].yearMade +1%>
+								<p class="text-grey-800 mb-2">Year: <%= projects[i].yearMade%> -<%=endingYear.toString().slice(2)%></p>
 								<p class="text-grey-800 mb-2">Description: <%= projects[i].projectDescription%></p>
 								<p class="projectId hidden"> <%= projects[i]._id%></p>
 								<button class="edit-btn w-full bg-blue-500 text-white rounded py-2 mt-4"> Edit </button>
@@ -138,12 +139,6 @@
 									<div class="mb-4">
 										<label for="edityearMade" min="0" class="block font-bold mb-2">Starting School Year Made: </label>
 										<input id="edityearMade" type="number" value="<%=projects[i].yearMade%>" placeholder="2023"class="border rounded-lg px-3 py-2 w-full" required>
-
-
-									</div>
-									<div class="mb-4">
-										<label for="editendingSchoolYear" class="block font-bold mb-2">Ending School Year: </label>
-										<input id="editendingSchoolYear" min="0" max="99" type="number" value="<%=projects[i].endingSchoolYear%>" placeholder="Ex: <%=projects[i].yearMade%> - 24"class="border rounded-lg px-3 py-2 w-full" required>
 
 
 									</div>
@@ -247,7 +242,7 @@
 							<%
 								allProjects.sort((a, b) => a.grade - b.grade)
 							%>
-							<% for(let i=0; i < allProjects.length; i++){ %>
+							<% for(let i = allProjects.length - 1; i >=0 ; i--){ %>
 								<div class="flex items-center space-x-2 align-center">
 									<input name="projectId" value="<%= allProjects[i]._id %>" type="checkbox">
 									<label for="<%= allProjects[i]._id %>" class="block font-bold mb-2"><%= allProjects[i].projectName %></label>
@@ -303,7 +298,7 @@
 													</div>
 													<div class="mb-4">
 														<label for="grade" class="block font-bold mb-2">Grade: </label>
-														<input id="grade" type="number" class="border rounded-lg px-3 py-2 w-full" min="9" max="12"required>
+														<input id="grade" placeholder="9-12"type="number" class="border rounded-lg px-3 py-2 w-full" min="9" max="12"required>
 
 
 													</div>
@@ -314,7 +309,7 @@
 													</div>
 												<div class="mb-4">
 													<label for="yearMade" class="block font-bold mb-2">Year Made: </label>
-													<input id="yearMade" type="number"  class="border rounded-lg px-3 py-2 w-full" required>
+													<input id="yearMade" type="number" placeholder="Ex: 2024 or 2025" class="border rounded-lg px-3 py-2 w-full" required>
 
 
 												</div>
@@ -331,11 +326,17 @@
 
 													</div>
 													<div class="mb-4">
-														<label for="projectURL" class="block font-bold mb-2">Project URL (Deploy link): </label>
-														<input id="projectURL" type="text" placeholder="https://example.websiteDomainName.com" class="border rounded-lg px-3 py-2 w-full" required>
-
-
+														<label for="hasDeployLink" class="block font-bold mb-2">Has Project Link?</label>
+														<select id="hasDeployLink" class="border rounded-lg px-3 py-2 w-full" required>
+																<option value="yes">Yes</option>
+																<option value="no">No</option>
+														</select>
 													</div>
+													<div class="mb-4" id="projectURLContainer">
+														<label for="projectURL" class="block font-bold mb-2">Project URL (Deploy link): </label>
+														<input id="projectURL" type="text" placeholder="https://example.websiteDomainName.com" class="border rounded-lg px-3 py-2 w-full">
+													</div>
+													
 													<div class="mb-4">
 														<label for="coursePage" class="block font-bold mb-2">For Course? </label>
 														<select id="coursePage" class="border rounded-lg px-3 py-2 w-full" required >
@@ -391,6 +392,7 @@
 		</script>
 		<script>
 			
+			
 
 			
 			function addProjectForm() {
@@ -408,11 +410,11 @@
 				</div>
 				<div class="mb-4">
 					<label class="block font-bold mb-2">Grade:</label>
-					<input type="number" class="grade border rounded-lg px-3 py-2 w-full" min="9" max="12" required>
+					<input type="number"  placeholder="9-12" class="grade border rounded-lg px-3 py-2 w-full" min="9" max="12" required>
 				</div>
 				<div class="mb-4">
 					<label class="block font-bold mb-2">Year Made:</label>
-					<input type="number" class="yearMade border rounded-lg px-3 py-2 w-full" required>
+					<input type="number" placeholder="Ex: 2024 or 2025" class="yearMade border rounded-lg px-3 py-2 w-full" required>
 				</div>
 				<div class="mb-4">
 					<label class="block font-bold mb-2">Made Using:</label>
@@ -427,9 +429,17 @@
 					<textarea class="projectDescription border rounded-lg px-3 py-2 w-full" required></textarea>
 				</div>
 				<div class="mb-4">
-					<label class="block font-bold mb-2">Project URL:</label>
-					<input type="text" class="projectURL border rounded-lg px-3 py-2 w-full" required>
+					<label class="block font-bold mb-2">Has Project url link?</label>
+					<select class="hasDeployLink border rounded-lg px-3 py-2 w-full" required>
+							<option value="yes">Yes</option>
+							<option value="no">No</option>
+					</select>
 				</div>
+				<div class="mb-4 projectURLContainer">
+					<label class="block font-bold mb-2">Project URL:</label>
+					<input type="text" class="projectURL border rounded-lg px-3 py-2 w-full">
+				</div>
+				
 				<div class="mb-4">
 					<label class="block font-bold mb-2">Course:</label>
 					<select class="coursePage border rounded-lg px-3 py-2 w-full" required>
@@ -441,61 +451,81 @@
 				</div>
 			`;
 			document.getElementById('projectForms').appendChild(projectForm);
-			}
 
-			document.getElementById('multiCreateProjectForm').addEventListener('submit', (e) => {
+				const hasDeployLink = projectForm.querySelector('.hasDeployLink');
+				const projectURLContainer = projectForm.querySelector('.projectURLContainer');
+				const projectURL = projectForm.querySelector('.projectURL');
+				hasDeployLink.addEventListener('change', function() {
+						if (this.value === 'yes') {
+								projectURLContainer.style.display = 'block';
+								projectURL.value = '';
+								projectURL.required = true;
+						} else {
+								projectURLContainer.style.display = 'none';
+								projectURL.value = 'None';
+								projectURL.required = false;
+						}
+				});
+				
+			}
+			document.getElementById('multiCreateProjectForm').addEventListener('submit', async (e) => {
 					e.preventDefault();
 					const projectForms = document.querySelectorAll('.project-form');
 					const projects = [];
 
-					projectForms.forEach((form, index) => {
+					// Function to read file as base64
+					const readFileAsBase64 = (file) => {
+							return new Promise((resolve) => {
+									const reader = new FileReader();
+									reader.onloadend = () => resolve(reader.result.split(',')[1]);
+									reader.readAsDataURL(file);
+							});
+					};
+
+					// Process all projects
+					for (const form of projectForms) {
 							const fileInput = form.querySelector('.projectImg');
 							let base64Image = null;
 
 							if (fileInput.files[0]) {
-									const reader = new FileReader();
-									reader.readAsDataURL(fileInput.files[0]);
-									reader.onloadend = function() {
-											base64Image = reader.result.split(',')[1];
-
-											const projectData = {
-													projectName: form.querySelector('.projectName').value,
-													studentName: form.querySelector('.studentName').value,
-													grade: form.querySelector('.grade').value,
-													yearMade: form.querySelector('.yearMade').value,
-													madeUsing: form.querySelector('.madeUsing').value,
-													projectDescription: form.querySelector('.projectDescription').value,
-													projectURL: form.querySelector('.projectURL').value,
-													coursePage: form.querySelector('.coursePage').value,
-													projectImg: base64Image
-											};
-											projects.push(projectData);
-
-											if (index === projectForms.length - 1) {
-													sendProjectsData(projects);
-											}
-									};
-							} else {
-									const projectData = {
-											projectName: form.querySelector('.projectName').value,
-											studentName: form.querySelector('.studentName').value,
-											grade: form.querySelector('.grade').value,
-											yearMade: form.querySelector('.yearMade').value,
-											madeUsing: form.querySelector('.madeUsing').value,
-											projectDescription: form.querySelector('.projectDescription').value,
-											projectURL: form.querySelector('.projectURL').value,
-											coursePage: form.querySelector('.coursePage').value,
-											projectImg: null
-									};
-									projects.push(projectData);
-
-									if (index === projectForms.length - 1) {
-											sendProjectsData(projects);
-									}
+									base64Image = await readFileAsBase64(fileInput.files[0]);
 							}
-					});
+
+							const projectData = {
+									projectName: form.querySelector('.projectName').value,
+									studentName: form.querySelector('.studentName').value,
+									grade: form.querySelector('.grade').value,
+									yearMade: form.querySelector('.yearMade').value,
+									madeUsing: form.querySelector('.madeUsing').value,
+									projectDescription: form.querySelector('.projectDescription').value,
+									projectURL: form.querySelector('.projectURL').value,
+									coursePage: form.querySelector('.coursePage').value,
+									projectImg: base64Image
+							};
+							projects.push(projectData);
+					}
+
+					// Send all projects data
+					sendProjectsData(projects);
 			});
 
+
+
+			document.getElementById('hasDeployLink').addEventListener('change', function() {
+					const projectURLContainer = document.getElementById('projectURLContainer');
+					const projectURL = document.getElementById('projectURL');
+					if (this.value === 'yes') {
+							projectURLContainer.style.display = 'block';
+							projectURL.value = '';
+							projectURL.required = true;
+					} else {
+							projectURLContainer.style.display = 'none';
+							projectURL.value = 'None';
+							projectURL.required = false;
+					}
+			});
+
+	
 			function sendProjectsData(projects) {
 					console.log("Sending projects data:", projects);
 					fetch('/project/multi', {
@@ -508,13 +538,13 @@
 					.then(response => response.json())
 					.then(data => {
 							console.log('Projects created:', data);
-							alert('All the Projects have been created')
+							alert(`${data.length} projects have been created`);
 							hideMultiProjectForm();
-							location.reload()
+							location.reload();
 					})
 					.catch(error => {
-						alert('Something went wrong')
-						console.error('Error:', error);
+							alert('Something went wrong');
+							console.error('Error:', error);
 					});
 			}
 
