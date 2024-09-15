@@ -29,17 +29,17 @@ const mongoDBConnectionString ="mongodb+srv://xabriel:CSH2024@cluster0.x02ddgh.m
 // const oneDayMilliseconds = 24 * 60 * 60 * 1000
 
 
-app.use(session({
-	secret: secretSessionKey,
-	resave: false,
-	saveUninitialized: false,
-	store: MongoStore.create({ mongoUrl: mongoDBConnectionString }),
-	cookie: {
-		secure: process.env.NODE_ENV === 'production',
-		// maxAge: 4 * oneDayMilliseconds, // last for 4 days
-		// expires: new Date(Date.now() + 4 * oneDayMilliseconds),
-	},
-}));
+app.use(
+	session({
+		secret: "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", 
+		resave: false,
+		saveUninitialized: false,
+		store: MongoStore.create({ mongoUrl: mongoDBConnectionString }),
+		cookie: {
+			maxAge: 2 * 24 * 60 * 60 * 1000, // determines how long you will be logged in for
+		},
+	}),
+);
 
 app.set("view engine", "ejs");
 
