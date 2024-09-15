@@ -110,6 +110,6 @@ app.use((req, res, next) => {
 	res.status(404).sendFile(__dirname + "/public/404.html")
 });
 
-app.listen(10000, (req, res) => {
+app.listen(1000, (req, res) => {
 	console.log("Sever RUNNING!!!");
 });
