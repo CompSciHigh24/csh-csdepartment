@@ -9,6 +9,7 @@ const passport = require("passport");
 const session = require('express-session')
 const app = express();
 const crypto = require('crypto');
+const port = process.env.PORT || 4000;
 
 const generateRandomString = (length) => {
 	return crypto.randomBytes(Math.ceil(length / 2))
@@ -110,6 +111,6 @@ app.use((req, res, next) => {
 	res.status(404).sendFile(__dirname + "/public/404.html")
 });
 
-app.listen("3000", (req, res) => {
+app.listen(port, (req, res) => {
 	console.log("Sever RUNNING!!!");
 });
