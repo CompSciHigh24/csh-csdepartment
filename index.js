@@ -111,6 +111,6 @@ app.use((req, res, next) => {
 	res.status(404).sendFile(__dirname + "/public/404.html")
 });
 
-app.listen(port, (req, res) => {
+app.listen(port,'0.0.0.0', (req, res) => {
 	console.log("Sever RUNNING!!!");
 });
