@@ -191,9 +191,9 @@ document.querySelectorAll('.edit-btn').forEach((button) => {
 							})
 							.then((response) => response.json())
 							.then((data) => {
-									// hideEditForm(editForm);
-									// alert("Project has been updated")
-									// location.reload()
+									hideEditForm(editForm);
+									alert("Project has been updated")
+									location.reload()
 							})
 							.catch((error) => {
 									console.error('Error:', error);
